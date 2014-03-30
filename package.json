@@ -1,0 +1,36 @@
+{
+  "name": "tagslide",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "foreman start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/konsumer/tagslide.git"
+  },
+  "author": "David Konsumer <konsumer@jetboystudio.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/konsumer/tagslide/issues"
+  },
+  "homepage": "https://github.com/konsumer/tagslide",
+  "devDependencies": {
+    "foreman": "^0.2.1"
+  },
+  "dependencies": {
+    "express": "^3.5.1",
+    "mongoose": "^3.8.8",
+    "grunt": "^0.4.4",
+    "load-grunt-tasks": "^0.4.0",
+    "time-grunt": "^0.3.1",
+    "grunt-bower-install": "^1.4.0",
+    "grunt-usemin": "^2.1.0",
+    "grunt-contrib-concat": "^0.3.0",
+    "grunt-contrib-cssmin": "^0.9.0",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-copy": "^0.5.0"
+  }
+}
