@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "foreman start"
+    "start": "foreman start",
+    "postinstall": "./node_modules/.bin/bower install"
   },
   "repository": {
     "type": "git",
