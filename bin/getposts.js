@@ -67,7 +67,7 @@ function lookupInstagramTag(info, cb){
 
 					if ( (record.tags.indexOf(info.tag) !== -1)&& record.created_time < max_timestamp && record.created_time > min_timestamp){
 						var post = new Post({
-							created: record.created_time,
+							created: new Date(record.created_time*1000),
 							source: 'instagram',
 							approved: (approved.indexOf(record.id) !== -1),
 							id: record.id,

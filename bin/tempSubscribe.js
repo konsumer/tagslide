@@ -15,15 +15,12 @@ ig.use({
 });
 
 
-
-ig.subscribe_tag('funny', 'http://tagslide.herokuapp.com/callback/instagram/tag/funny', {}, function(err, result, limit){
+ig.subscriptions({}, function(err, result, limit){
 	console.log(result);
 });
 
-ig.subscribe_user('http://tagslide.herokuapp.com/callback/instagram/user', {}, function(err, result, limit){
+/*
+ig.subscribe_tag('instagramvideo', 'http://tagslide.herokuapp.com/callback/instagram/tag/instagramvideo', {}, function(err, result, limit){
 	console.log(result);
 });
-
-ig.subscribe_location(1257285, 'http://tagslide.herokuapp.com/callback/instagram/location/1257285', {}, function(err, result, limit){
-	console.log(result);
-});
+*/
