@@ -5,8 +5,7 @@
 
 var mongoose = require('mongoose'),
 	mongooseTypes = require("mongoose-types"),
-	Tag = require('./Tag'),
-	instagram = require('instagram-node').instagram();
+	Tag = require('./Tag');
 
 mongooseTypes.loadTypes(mongoose);
 
