@@ -4,3 +4,4 @@ app/bower_components
 dist
 .env
 .tmp
+newrelic_agent.log

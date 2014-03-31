@@ -4,6 +4,8 @@ var express = require('express'),
 	Tag = require('./models/Tag'),
 	mers = require('mers');
 
+require('newrelic');
+
 var app = express();
 app.use(express.compress());
 
