@@ -1,7 +1,5 @@
 var cluster = require('cluster');
 
-require('newrelic');
-
 // start a cluster the size of available CPU cores
 if (cluster.isMaster) {
 	var numCPUs = require('os').cpus().length;
