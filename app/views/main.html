@@ -3,6 +3,8 @@
 		<h1>Branding here</h1>
 	</div>
 
+	<button ng-click="fullscreen()" id="fullscreen">fullscreen</button>
+
 	<ul class="slides">
 		<li class="slide" ng-repeat="slide in posts" ng-class="{ active : slide.id == posts[current].id }">
 			<div class="media {{slide.type}}">
