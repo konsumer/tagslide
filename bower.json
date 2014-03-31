@@ -16,6 +16,7 @@
     "angular": "~1.2.15",
     "prefixfree": "konsumer/prefixfree#~1.0.9",
     "json3": "~3.3.0",
-    "es5-shim": "~2.3.0"
+    "es5-shim": "~2.3.0",
+    "angular-resource": "~1.2.15"
   }
 }

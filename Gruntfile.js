@@ -8,15 +8,16 @@ module.exports = function (grunt) {
 				'src': ['dist']
 			}
 		},
-		copy: {
-			default: {
-				files: [
+
+		'copy': {
+			'default': {
+				'files': [
 					{
-						expand: true,
-						dot: true,
-						cwd: 'app',
-						dest: 'dist',
-						src: [
+						'expand': true,
+						'dot': true,
+						'cwd': 'app',
+						'dest': 'dist',
+						'src': [
 							'*.{ico,png,txt}',
 							'*.html',
 							'views/{,*/}*.html',
@@ -24,10 +25,10 @@ module.exports = function (grunt) {
 						]
 					},
 					{
-						expand: true,
-						cwd: '.tmp/images',
-						dest: 'dist/images',
-						src: ['generated/*']
+						'expand': true,
+						'cwd': '.tmp/images',
+						'dest': 'dist/images',
+						'src': ['generated/*']
 					}
 				]
 			}
@@ -35,7 +36,7 @@ module.exports = function (grunt) {
 
 		'bowerInstall': {
 			'default': {
-				'src': ['dist/{,*/}*.html'],
+				'src': ['app/{,*/}*.html'],
 				'ignorePath': 'app/'
 			}
 		},
@@ -56,5 +57,14 @@ module.exports = function (grunt) {
 		}
 	});
 
-	grunt.registerTask('default', ['clean', 'bowerInstall', 'useminPrepare', 'copy', 'concat', 'cssmin', 'uglify', 'usemin']);
+	grunt.registerTask('default', [
+		'clean',
+		'bowerInstall',
+		'useminPrepare',
+		'copy',
+		'concat',
+		'cssmin',
+		'uglify',
+		'usemin'
+	]);
 };

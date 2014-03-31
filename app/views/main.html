@@ -1,1 +1,18 @@
-MAIN
+<div class="branding">
+	<h1>Branding here</h1>
+</div>
+
+<ul class="slides">
+	<li class="slide" ng-repeat="slide in posts">
+		<div class="media {{slide.type}}">
+			<img ng-src="{{slide.media}}" ng-show="slide.type=='image'" />
+			<video autoplay loop muted ng-src="{{slide.media}}" ng-show="slide.type=='video'"></video>
+		</div>
+		<div class="user">
+			{{slide.user}}
+			<img ng-src="{{slide.user_img}}" />
+		</div>
+		<div class="source">{{slide.source}}</div>
+		<div class="created">{{slide.created | date }}</div>
+	</li>
+</ul>
