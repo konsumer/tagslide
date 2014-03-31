@@ -14,9 +14,8 @@ if (cluster.isMaster) {
 	// only 1 needed per-cluster
 	var cron = require('./server/cron');
 
-	// Run cron initially & at interval
-	var time = process.env.CRON_INTERVAL || 120; // minutes
-	var interval = setInterval(cron, time * 60000);
+	// Run cron initially & at 1-minute interval
+	var interval = setInterval(cron, 60000);
 	cron();
 
 } else {
