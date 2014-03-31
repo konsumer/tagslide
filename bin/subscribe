@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# subscribe to realtime tags
+# http://instagram.com/developer/realtime/
+
+source .env
+
+echo $INSTAGRAM_ID
+
+curl -F 'client_id=$INSTAGRAM_ID' \
+     -F 'client_secret=$INSTAGRAM_SECRET' \
+     -F 'object=tag' \
+     -F 'aspect=media' \
+     -F 'object_id=tagslide' \
+     -F 'callback_url=http://tagslide.herokuapp.com/callback/instagram/tag/tagslide' \
+     https://api.instagram.com/v1/subscriptions/

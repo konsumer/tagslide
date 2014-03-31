@@ -1,0 +1,30 @@
+<div class="form-group">
+	<label for="tag">Tag</label>
+	<input ng-model="tag" type="text" class="form-control" id="tag" placeholder="Enter tag text">
+</div>
+
+<div class="form-group">
+	<label>Start Date</label>
+	<p class="input-group">
+	  <input type="text" class="form-control" ng-model="start" required="true" />
+	  <span class="input-group-btn">
+	    <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+	  </span>
+	</p>
+</div>
+
+<div class="form-group">
+	<label>End Date</label>
+	<p class="input-group">
+	  <input type="text" class="form-control" ng-model="end" required="true" />
+	  <span class="input-group-btn">
+	    <button class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+	  </span>
+	</p>
+</div>
+
+<button ng-click="Tag.save({tag:tag, start:start, end:end})" class="btn btn-default">create</button>
+
+<ul>
+	<li ng-repeat="tag in Tag.query()"><a href="#edit/tag/{{tag['_id']}}">{{tag.tag}}</a></li>
+</ul>

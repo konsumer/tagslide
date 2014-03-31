@@ -1,7 +1,7 @@
 var express = require('express'),
 	mongoose = require('mongoose'),
-	Post = require('./models/Post.js'),
-	Tag = require('./models/Tag.js'),
+	Post = require('./models/Post'),
+	Tag = require('./models/Tag'),
 	mers = require('mers');
 
 var app = express();
