@@ -20,5 +20,5 @@ if (cluster.isMaster) {
 	cron();
 
 } else {
-	var app = require('./server/worker');
+	var app = require('./server/worker.js');
 }
