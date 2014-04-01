@@ -5,7 +5,7 @@ var express = require('express'),
 	path = require('path'),
 	mongoose = require('mongoose'),
 	Post =require('./models/Post'),
-	mers = require('mers');
+	Tag =require('./models/Tag');
 
 var port = Number(process.env.PORT || 5000);
 server.listen(port);
@@ -20,8 +20,6 @@ mongoose.connection.on('error', function(e){
 	console.log('Mongoose Error:', e)
 });
 
-
-app.use('/rest', mers({mongoose:mongoose}).rest());
 
 app.use(express.static(path.join(__dirname, 'app')));
 

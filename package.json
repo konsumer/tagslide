@@ -4,7 +4,6 @@
   "dependencies": {
     "express": "^3.5.1",
     "socket.io": "^0.9.16",
-    "mers": "^0.7.3",
     "mongoose": "^3.8.8",
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~0.4.0",
