@@ -24,4 +24,11 @@ mongoose.connection.on('error', function(e){
 app.use(express.static(path.join(__dirname, 'app')));
 
 io.sockets.on('connection', function (socket) {
+	// give them a list of tags, initially
+	Tag.find({}, function(posts){
+		posts.forEach(function(post){
+			socket.emit('tag:add', post);
+		});
+	});
+
 });
