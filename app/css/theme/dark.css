@@ -1,3 +1,7 @@
+.slideshow.dark, .slideshow.dark *, .slideshow.dark *:before, .slideshow.dark *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+ }
+
 .slideshow.dark {
 	background: #000;
 	height: 100%;
@@ -55,6 +59,8 @@
 	float:right;
 	width: 50%;
 	height: 100%;
+	padding: 10px;
+
 }
 
 .slideshow.dark .caption, .slideshow.dark .media {

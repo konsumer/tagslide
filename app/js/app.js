@@ -1,5 +1,13 @@
 'use strict';
 
+angular.module('controllers', []);
+angular.module('filters', []);
+angular.module('services', []);
+
 angular.module('tagslide', [
-  'ngResource'
-]);
+	'controllers',
+	'filters',
+	'services',
+	'ngResource',
+	'ui.bootstrap'
+])

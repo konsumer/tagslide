@@ -42,6 +42,9 @@ app.get('/admin', function(req, res){
 
 // TODO: require auth on all but /rest/post/finder/tag/:tag
 // https://github.com/jspears/mers/issues/25
+
+// TODO: delete all posts in a tag when tag is deleted
+
 app.use('/rest', mers({mongoose:mongoose}).rest());
 
 // instagram realtime API

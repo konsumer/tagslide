@@ -1,17 +1,14 @@
 'use strict';
 
-angular.module('tagslide')
-  .controller('Main', function ($scope, $resource, $interval, $sce) {
+angular.module('controllers')
+  .controller('Main', function ($scope, $interval, $sce, Post, Tag) {
     $scope.tag = 'instagramvideo';
     $scope.theme = 'dark';
-
-    $scope.current =0;
-
-    var Post = $resource('/rest/post/finder/tag/:tag');
+    $scope.current = 0;
 
     // check for new posts
     function updateData(){
-	    Post.get({tag:'instagramvideo'},function(data){
+	    Post.findByTag({tag:'instagramvideo'},function(data){
 	    	if ($scope.posts){
 	    		var ids = $scope.posts.map(function(p){ return p.id; });
 		    	data.payload.forEach(function(p){

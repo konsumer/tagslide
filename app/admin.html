@@ -6,16 +6,87 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>tagslide</title>
+    <title>tagslide admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        .posts li {
+            list-style:none;
+        }
+        .posts li > div{
+            margin: 5px;
+            position:relative;
+        }
+
+        .checkbox {
+            position:absolute;
+            right:5px;
+            top:5px;
+        }
+
+        .approve {
+            position:absolute;
+            top: 2px;
+            right: 2px;
+        }
+    </style>
+
   </head>
   <body ng-app="tagslide">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     
-    <div id="page" ng-include="'views/admin/tag.html'" ng-controller="Admin"></div>
+    <div class="container" id="page" ng-controller="Admin">
+        <h1>tagslide admin</h1>
+
+        <h2>tags <button ng-click="form({})" class="btn btn-primary">create</button></h2>
+
+        <h3>modify</h3>
+        <ul>
+            <li ng-repeat="tag in tags">
+                <a target="_new" href="/#!/tag/{{tag.tag}}" class="btn btn-default">{{tag.tag}}</a>
+                <a ng-click="form(tag)" class="btn btn-default">edit</a>
+                <button ng-click="deleteTag(tag)" class="btn btn-danger">delete</button>
+            </li>
+        </ul>
+
+
+        <h2>posts</h2>
+
+        <div class="clearfix" ng-repeat="tag in tags">
+            <h3>#{{tag.tag}}</h3>
+
+            <div class="clearfix">
+                <h4>unapproved</h4>
+                <ul class="posts">
+                    <li ng-repeat="post in posts | isNotApproved | hasTag:tag.tag" class="col-sm-4">
+                        <div>
+                            <img class="img-responsive" ng-src="{{post.media}}" ng-if="post.type=='image'" />
+                            <video class="img-responsive" controls muted ng-src="{{post.media}}" ng-if="post.type=='video'"></video>
+                            <button class="approve  btn btn-success" ng-click="approve(post)">approve</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="clearfix">
+                <h4>approved</h4>
+                <ul class="posts">
+                    <li ng-repeat="post in posts | isApproved | hasTag:tag.tag" class="col-sm-4">
+                        <div>
+                            <img class="img-responsive" ng-src="{{post.media}}" ng-if="post.type=='image'" />
+                            <video class="img-responsive" controls muted ng-src="{{post.media}}" ng-if="post.type=='video'"></video>
+                            <button class="approve btn btn-danger" ng-click="approve(post)">unapprove</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>  
+        </div>
+
+
+    </div>
 
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -24,16 +95,23 @@
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="/bower_components/angular/angular.js"></script>
-    <script src="/bower_components/prefixfree/prefixfree.js"></script>
-    <script src="/bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/prefixfree/prefixfree.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="/js/app.js"></script>
-    <script src="/js/controllers/Admin.js"></script>
-    <script src="/js/controllers/Main.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers/FormModal.js"></script>
+    <script src="js/controllers/Admin.js"></script>
+    <script src="js/controllers/Main.js"></script>
+    <script src="js/filters/hasTag.js"></script>
+    <script src="js/filters/isApproved.js"></script>
+    <script src="js/filters/isNotApproved.js"></script>
+    <script src="js/services/Post.js"></script>
+    <script src="js/services/Tag.js"></script>
     <!-- endbuild -->
 </body>
 </html>
