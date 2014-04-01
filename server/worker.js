@@ -36,10 +36,6 @@ app.use(app.router);
 
 app.use('/', express.static('app'));
 
-app.get('/admin', function(req, res){
-	res.sendfile('app/admin.html');
-});
-
 // TODO: require auth on all but /rest/post/finder/tag/:tag
 // https://github.com/jspears/mers/issues/25
 
@@ -48,6 +44,7 @@ app.get('/admin', function(req, res){
 app.use('/rest', mers({mongoose:mongoose}).rest());
 
 // instagram realtime API
+// TODO: save records and inform clients somehow,  maybe socket.io?
 
 app.all('/callback/instagram/tag/:tag', function(req, res){
 	res.send(req.query['hub.challenge']);

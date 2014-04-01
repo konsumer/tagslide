@@ -18,32 +18,7 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     
-    <div id="page" ng-controller="Main">
-        <div class="slideshow {{theme}}">
-            <div class="branding">
-                <h1>Branding here</h1>
-            </div>
-
-            <button ng-click="fullscreen()" id="fullscreen">fullscreen</button>
-
-            <ul class="slides">
-                <li class="slide" ng-repeat="slide in posts" ng-class="{ active : slide.id == posts[current].id }">
-                    <div class="media {{slide.type}}">
-                        <img ng-src="{{slide.media}}" ng-if="slide.type=='image'" />
-                        <video autoplay loop muted ng-src="{{slide.media}}" ng-if="slide.type=='video'"></video>
-                    </div>
-                    
-                    <div class="meta">
-                        <div class="caption">{{slide.caption}}</div>
-                        <div class="user">
-                            <span>{{slide.user}}</span>
-                            <img ng-src="{{slide.user_img}}" />
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <ng-view id="page"></ng-view>
 
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -56,6 +31,7 @@
     <script src="bower_components/prefixfree/prefixfree.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -69,6 +45,7 @@
     <script src="js/filters/isNotApproved.js"></script>
     <script src="js/services/Post.js"></script>
     <script src="js/services/Tag.js"></script>
+    <script src="js/services/fullscreen.js"></script>
     <!-- endbuild -->
 </body>
 </html>

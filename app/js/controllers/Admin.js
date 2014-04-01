@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('controllers')
-  .controller('Admin', function ($scope, $sce, $modal, Tag, Post) {
+  .controller('Admin', function ($scope, $sce, $modal, Tag, Post, $interval) {
 	function updateTags(){
 		Tag.query({}, function(tags){
 			$scope.tags = tags;
@@ -10,10 +10,20 @@ angular.module('controllers')
 	updateTags();
 
 	function updatePosts(){
-	    Post.query({}, function(posts){
-			$scope.posts = posts;
-		});
+	    Post.findByTag({tag:'instagramvideo'},function(data){
+	    	if ($scope.posts){
+	    		var ids = $scope.posts.map(function(p){ return p.id; });
+	    		data.forEach(function(p){
+					if (ids.indexOf(p.id) === -1){
+						$scope.posts.push(p);
+					}
+	    		});
+	    	}else{
+	    		$scope.posts = data;
+	    	}
+	    });
 	}
+	$interval(updatePosts, 30000);
 	updatePosts();
 
   	$scope.deleteTag = function(tag){
@@ -30,8 +40,21 @@ angular.module('controllers')
   	}
 
   	$scope.form = function(object){
-  		formModal('tag', $modal, object, function(obj){
-
-  		});
+  		formModal('tag', $modal, object)
+	  		.result.then(function (newT) {
+	  			function saveTag(tag){
+  					tag.tag = newT.tag;
+	  				tag.start = newT.start;
+	  				tag.end = newT.end;
+	  				tag.$save(function(er){
+	  					console.log(er);
+	  				});
+	  			}
+	  			if (newT['_id']){
+		  			Tag.get({tag:newT['_id']}, saveTag);
+		  		}else{
+		  			saveTag(new Tag());
+		  		}
+		    });
   	}
   });

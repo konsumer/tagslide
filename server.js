@@ -10,6 +10,8 @@ if (cluster.isMaster) {
 		console.log('worker ' + worker.process.pid + ' died');
 	});
 
+	// TODO: remove cron, and just use realtime updates
+
 	// load periodic server
 	// only 1 needed per-cluster
 	var cron = require('./server/cron');

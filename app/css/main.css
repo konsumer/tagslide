@@ -16,3 +16,26 @@ ul, li {
 	padding:0;
 	margin:0;
 }
+
+/* admin */
+
+.posts li {
+    list-style:none;
+}
+
+.posts li > div{
+    margin: 5px;
+    position:relative;
+}
+
+.checkbox {
+    position:absolute;
+    right:5px;
+    top:5px;
+}
+
+.approve {
+    position:absolute;
+    top: 2px;
+    right: 2px;
+}
