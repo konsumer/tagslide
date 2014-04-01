@@ -1,3 +1,7 @@
+/**
+ * Model that  represents a post that has been approved by an admin
+ * @type {Model}
+ */
 var mongoose = require('mongoose');
 
 var Post = new mongoose.Schema({
