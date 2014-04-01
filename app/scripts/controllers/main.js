@@ -1,19 +1,21 @@
 'use strict';
 
 angular.module('controllers')
-.controller('MainCtrl', function ($scope, socket) {
+.controller('MainCtrl', function ($scope, socket, instagram) {
 	$scope.tags = [];
+	$scope.tag = 'instagramvideo'
+
+	$scope.themes = ['dark'];
+	$scope.theme = "dark";
 
 	socket.on('tag:add', function (tag) {
 		$scope.tags.push(tag);
 	});
 
 	socket.on('tag:remove', function (id) {
-		for (var t in $scope.tags){
-			if ($scope.tags[t]['_id'] == id){
-				delete $scope.tags[t];
-				break;
-			}
+		var i = array.indexOf(id);
+		if (i > -1) {
+			$scope.tags.splice(i, 1);
 		}
 	});
 
