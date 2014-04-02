@@ -1,15 +1,22 @@
 angular.module('factories')
-.factory('instagram', ['$http', function($http){
-
+.factory('instagram', function($http){
+	var base = "https://api.instagram.com/v1";
+	// get your own client id http://instagram.com/developer/
+	var clientId = 'e00b26d1c7d04ed49d535398b6b2d592';
 	return {
-		fetchPopular: function(callback){
-            
-            var endPoint = "https://api.instagram.com/v1/media/popular?client_id=642176ece1e7445e99244cec26f4de1f&callback=JSON_CALLBACK";
-            
-            $http.jsonp(endPoint).success(function(response){
-                callback(response.data);
-            });
+		'get': function(hashtag, count) {
+			count = count || 100;
+			var request = '/tags/' + hashtag + '/media/recent';
+			var url = base + request;
+			var config = {
+				'params': {
+					'client_id': clientId,
+					'count': count,
+					'callback': 'JSON_CALLBACK'
+				}
+			};
+			return $http.jsonp(url, config);
 		}
-	}
+	};
 
-}]);
+});

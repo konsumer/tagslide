@@ -20,13 +20,42 @@ mongoose.connection.on('error', function(e){
 	console.log('Mongoose Error:', e)
 });
 
-
 app.use(express.static(path.join(__dirname, 'app')));
 
 io.sockets.on('connection', function (socket) {
-	// give them a list of tags, initially
+	// give them a list of tags & OK'd posts, initially
 	Tag.find({}, function(er, tags){
-		tags.forEach(function(tag){ socket.emit('tag:add', tag.tag); });
+		tags.forEach(function(tag){
+			socket.emit('/tag/add', tag.tag);
+			Post.find({tag:tag.tag}, function(er, posts){
+				posts.forEach(function(post){
+					post.sourceTag = tag.tag;
+					socket.emit('/post/add', post);
+				});
+			});
+		});
 	});
 
+	// TODO: disable admin party
+
+	// OK a post
+	socket.on('/post/add', function (post, fn) {
+		var p = new Post({source:post.source, source_id:post.id, tag:post.sourceTag});
+		p.save(function(err){
+			if (!err){
+				socket.broadcast.emit('/post/add', p);
+			}
+			fn({error:err, record:p});
+		});
+	});
+
+	// de-OK a post
+	socket.on('/post/remove', function (post, fn) {
+		Post.findOneAndRemove({source: post.source, source_id: post.id}, function(err, p){
+			if(!err){
+				socket.broadcast.emit('/post/remove', p);
+			}
+			fn({error:err, record:p});
+		});
+	});
 });

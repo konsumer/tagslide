@@ -5,7 +5,7 @@
 var mongoose = require('mongoose');
 
 var Tag = new mongoose.Schema({
-	"tag": {type: String, required: true}
+	"tag": {type: String, required: true, unique: true}
 });
 
 module.exports = mongoose.model('Tag', Tag);

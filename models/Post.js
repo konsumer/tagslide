@@ -5,8 +5,9 @@
 var mongoose = require('mongoose');
 
 var Post = new mongoose.Schema({
-	"source_id": {type: String, required: true},
-	"source": { type: String, enum: ["twitter", "instagram"], required:true }
+	"source_id": {type: String, required: true, unique: true},
+	"source": { type: String, enum: ["twitter", "instagram"], required:true },
+	"tag": {type: String, required: true}
 });
 
 module.exports = mongoose.model('Post', Post);

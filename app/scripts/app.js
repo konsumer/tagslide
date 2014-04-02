@@ -1,5 +1,7 @@
 'use strict';
 
+var defaultTag = "instagramvideo";
+
 angular.module('controllers', []);
 angular.module('services', []);
 angular.module('filters', []);
@@ -13,15 +15,22 @@ angular.module('tagslideApp', [
   'factories',
   'controllers',
   'ngResource',
-  'ngRoute'
+  'ngRoute',
+  'ngCookies',
+  'ngAnimate',
+  'ui.bootstrap'
 ])
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
+      .when('/admin', {
+        templateUrl: 'views/admin.html',
+        controller: 'AdminCtrl'
+      })
+      .when('/:tag', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: defaultTag
       });
   });
