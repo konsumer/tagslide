@@ -38,7 +38,7 @@ io.sockets.on('connection', function (socket) {
 
 	// TODO: disable admin party
 
-	// OK a post
+	// OK a post in admin
 	socket.on('/post/add', function (post, fn) {
 		var p = new Post({source:post.source, source_id:post.id, tag:post.sourceTag});
 		p.save(function(err){
@@ -49,7 +49,7 @@ io.sockets.on('connection', function (socket) {
 		});
 	});
 
-	// de-OK a post
+	// de-OK a post in admin
 	socket.on('/post/remove', function (post, fn) {
 		Post.findOneAndRemove({source: post.source, source_id: post.id}, function(err, p){
 			if(!err){
@@ -57,5 +57,19 @@ io.sockets.on('connection', function (socket) {
 			}
 			fn({error:err, record:p});
 		});
+	});
+
+	// tag added in admin
+	socket.on('/post/add', function (post, fn) {
+		// add subscription for instagram
+		// add record in db
+		// send broadcast
+	});
+
+	// tag removed in admin
+	socket.on('/post/remove', function (post, fn) {
+		// remove subscription for instagram
+		// remove record in db
+		// send broadcast
 	});
 });

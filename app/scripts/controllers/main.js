@@ -8,6 +8,7 @@ angular.module('controllers')
 	$scope.posts = [];
 	$scope.current = 0;
 	$scope.tag = $location.path().substr(1);
+	var posts;
 
 	$scope.$watch('theme', function(){
 		var $bod = angular.element(document.body);
@@ -23,17 +24,21 @@ angular.module('controllers')
 	function updateInstagram(){
 		instagram.get($scope.tag)
 			.success(function(response) {
-				var posts = response.data.filter(function(p){
-					return ($scope.posts.indexOf(p.id) === -1);
-				});
+				posts = response.data;
 				posts = posts.map(function(p){
 					p.media = (p.type == 'image') ? p.images.standard_resolution.url : p.videos.standard_resolution.url;
 					p.media = $sce.trustAsResourceUrl(p.media);
 					p.user_img = $sce.trustAsResourceUrl(p.user.profile_picture);
-					p.approved = ($scope.okPosts.indexOf(p.id) !== -1);
 					return p;
 				});
-				$scope.posts = $scope.posts.concat(posts);
+				$scope.posts = $scope.posts.concat(
+					posts.filter(function(p){
+						return ($scope.okPosts.indexOf(p.id) !== -1);
+					})
+					.filter(function(p){
+						return ($scope.posts.indexOf(p.id) === -1);
+					})
+				);
 			});
 	}
 
@@ -58,6 +63,7 @@ angular.module('controllers')
 		var i = $scope.okPosts.indexOf(post.source_id);
 		if (i === -1) {
 			$scope.okPosts.push(post.source_id);
+			$scope.posts = posts.filter(function(p){ return ($scope.okPosts.indexOf(p.id) !== -1); });
 		}
 	});
 
@@ -66,6 +72,8 @@ angular.module('controllers')
 		var i = $scope.okPosts.indexOf(post.source_id);
 		if (i > -1) {
 			$scope.okPosts.splice(i, 1);
+			$scope.posts = posts.filter(function(p){ return ($scope.okPosts.indexOf(p.id) !== -1); });
 		}
+		
 	});
 });

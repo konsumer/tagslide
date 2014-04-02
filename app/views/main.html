@@ -11,7 +11,7 @@
 </form>
 
 <ul class="slideshow">
-    <li class="slide" ng-repeat="slide in posts | isApproved" ng-class="{ active : slide.id == posts[current].id }">
+    <li class="slide" ng-repeat="slide in posts" ng-class="{ active : slide.id == posts[current].id }">
         <div class="media {{slide.type}}">
             <img ng-src="{{slide.media}}" ng-if="slide.type=='image'" />
             <video autoplay loop muted ng-src="{{slide.media}}" ng-if="slide.type=='video'"></video>
