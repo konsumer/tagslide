@@ -116,13 +116,6 @@ module.exports = function (grunt) {
       }
     },
 
-    bower: {
-      install: {
-      }
-    }
-
-
-
     // Renames files for browser caching purposes
     rev: {
       dist: {
@@ -312,9 +305,12 @@ module.exports = function (grunt) {
           "<%= yeoman.dist %>/css/site.css": "<%= yeoman.app %>/less/site.less"
         }
       }
+    },
+
+    bower: {
+      install: {
+      }
     }
-
-
   });
 
 
@@ -323,6 +319,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'bower',
     'bower-install',
     'copy:dist',
     'replace:dist',
@@ -346,7 +343,6 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('heroku:production', [
-    'bower',
     'build'
   ]);
 };
