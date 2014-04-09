@@ -132,7 +132,7 @@ app.get('/instagram/:tag', function(req, res){
 
 // Instagram has a new post for us, re-process the tag
 app.post('/instagram/:tag', function(req, res){
-  res.send('OK');
+  res.send(req.query['hub.challenge']);
   console.log('from instagram', req.body);
   /*
   processTag(tag, false,  function(er){
