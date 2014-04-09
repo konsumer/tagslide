@@ -116,7 +116,10 @@ module.exports = function (grunt) {
       }
     },
 
-
+    bower: {
+      install: {
+      }
+    }
 
 
 
@@ -343,6 +346,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('heroku:production', [
+    'bower',
     'build'
   ]);
 };
