@@ -3,13 +3,13 @@
 
     <alert class="bouncy-slide-top" ng-animate ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
 
-    <h2>tags <button ng-click="form({})" class="btn btn-primary">create</button></h2>
+    <h2>tags <button ng-click="tagForm({})" class="btn btn-primary">create</button></h2>
 
     <h3>modify</h3>
     <ul>
         <li ng-repeat="tag in app.tags">
             <a target="_new" href="#/tag/{{tag.tag}}" class="btn btn-default">{{tag.tag}}</a>
-            <a ng-click="form(tag)" class="btn btn-default">edit</a>
+            <a ng-click="tagForm(tag)" class="btn btn-default">edit</a>
             <button ng-click="deleteTag(tag)" class="btn btn-danger">delete</button>
         </li>
     </ul>

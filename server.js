@@ -67,6 +67,7 @@ app.configure('production', function(){
 
 // grab recent posts for a tag
 function processTag(tag, max_tag_id, cb){
+  console.log('collecting posts on Instagram for ' + tag.tag);
   cb = cb || function(){};
   Post.find({tag: tag.tag}, 'id', function(er,p){
     if (er) return cb(er);
@@ -149,7 +150,6 @@ app.post('/instagram/:tag', function(req, res){
 //  Instagram.media.unsubscribe_all();
 Tag.find({}, function(er, tags){
   tags.forEach(function(tag){
-    console.log('collecting posts on Instagram for ' + tag.tag);
     var start = tag.start.getSeconds(),
       end = tag.end.getSeconds();
 
@@ -211,30 +211,32 @@ io.sockets.on('connection', function (Socket) {
     
     Tag.findOneAndUpdate({tag: tag.tag}, {
       tag:tag.tag,
-      start:start,
-      end:end
+      start:tag.start,
+      end:tag.end
     }, {upsert: true}, cb);
 
     Socket.broadcast.emit('tag', tag);
 
     processTag(tag, false,  function(er){
-      if (er) console.log('tag error', er)
+      if (er) console.log('tag error', er);
     });
   });
 
   // client is removing a tag: remove tag & all posts tagged with it, then send new data to all clients, including initiator
   Socket.on('tag/remove', function(tag, cb){
     Tag.findOneAndRemove({tag: tag.tag}, function(er){
-      if (er) return console.log('error removing tag', er);
+      if (er) return cb(er);
       
       Post.remove({tag: tag.tag}, function(er){
-        if (er) return console.log('error removing posts with tag', er);
+        if (er) return cb(er);
         Post.find({}, function(er,posts){
-          if (er) return console.log('error getting posts', er);
+          if (er) return cb(er);
           Socket.emit('posts', posts);
+          cb(false,'OK');
         });
       });
 
+      // update client tags
       Tag.find({}, function(er,tags){
         if (er) return console.log('error getting tags', er);
         io.sockets.emit('tags', tags);
