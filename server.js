@@ -67,7 +67,7 @@ app.configure('production', function(){
 
 // grab recent posts for a tag
 function processTag(tag, max_tag_id, cb){
-  console.log('collecting posts on Instagram for ' + tag.tag);
+  console.log('collecting posts on Instagram for #' + tag.tag);
   cb = cb || function(){};
   Post.find({tag: tag.tag}, 'id', function(er,p){
     if (er) return cb(er);
@@ -87,12 +87,9 @@ function processTag(tag, max_tag_id, cb){
             "username": post.user.username,
             "user_image": post.user.profile_picture,
             "date": created_time,
-            "approved": false
+            "approved": false,
+            "caption": (post.caption && post.caption.text) ? post.caption.text : ""
           });
-
-          if (post.caption && post.caption.text){
-            newPost.caption = post.caption.text;
-          }
 
           newPost.save(function(er){
             if (er) return cb(er);
@@ -190,7 +187,7 @@ io.sockets.on('connection', function (Socket) {
     
     Post.findOneAndUpdate({id: post.id}, {
       approved: post.approved,
-      caption: post.caption,
+      caption: (post.caption && post.caption.text) ? post.caption.text : "",
       date: post.date,
       id: post.id,
       media: post.media,

@@ -11,7 +11,7 @@ angular.module('controllers')
 			if (err){
 				addAlert(err.message, 'danger');
 			}else{
-				addAlert('post saved', 'success');
+				addAlert('post approved.', 'success');
 			}
 		});
 	}
@@ -32,7 +32,7 @@ angular.module('controllers')
 				if (err){
 					addAlert(err.message, 'danger');
 				}else{
-					addAlert('tag removed', 'success');
+					addAlert('tag removed.', 'success');
 				}
 			});
 		}
@@ -54,7 +54,7 @@ angular.module('controllers')
 				if (err){
 					addAlert(err.message, 'danger');
 				}else{
-					addAlert('tag saved', 'success');
+					addAlert('tag saved.', 'success');
 				}
 			});
 	    });

@@ -1,7 +1,9 @@
 <div class="admin container">
+    <div ng-if="alerts.length" class="container alerts">
+        <alert class="bouncy-slide-top" ng-animate ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+    </div>
+    
     <h1>tagslide admin</h1>
-
-    <alert class="bouncy-slide-top" ng-animate ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
 
     <h2>tags <button ng-click="tagForm({})" class="btn btn-primary">create</button></h2>
 
