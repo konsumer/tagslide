@@ -124,7 +124,10 @@ function processTag(tag, max_tag_id, cb){
 
 // when Instagram asks us if we cool: we cool.
 app.get('/instagram/:tag', function(req, res){
-  Instagram.subscriptions.handshake(req, res);
+  res.send(req.query['hub.challenge']);
+  
+  // broken
+  //Instagram.subscriptions.handshake(req, res);
 });
 
 // Instagram has a new post for us, re-process the tag
