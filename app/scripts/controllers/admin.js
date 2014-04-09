@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('controllers')
-.controller('AdminCtrl', function ($scope, App, Socket) {
-	$scope.app = new App();
+.controller('AdminCtrl', function ($scope, $rootScope, App, Socket) {
+	$scope.app = $rootScope.app;
+
 	$scope.alerts = [];
 
 	function savePost(post){

@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('controllers')
-.controller('TagCtrl', function ($scope, $sce, $interval, $timeout, $routeParams, $animate, App, fullscreen) {
-	// TODO: handle successful route so refresh isn't needed
-	$scope.app = new App();
+.controller('TagCtrl', function ($scope, $rootScope, $interval, $timeout, $routeParams, $animate, App, fullscreen) {
+	$scope.app = $rootScope.app;
 	$scope.theme = 'dark';
 	$scope.current_tag = $routeParams.tag;
 	var internal_current=0;

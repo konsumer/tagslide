@@ -39,4 +39,13 @@ angular.module('tagslideApp', [
       .otherwise({
         redirectTo: '/'
       });
+  })
+  
+  .run(function ($rootScope, App) {
+    $rootScope.$on('$locationChangeSuccess', function () {
+        // service singleton not working...
+        if (!$rootScope.app){
+          $rootScope.app = new App();
+        }
+    });
   });
