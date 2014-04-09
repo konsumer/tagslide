@@ -11,7 +11,7 @@
                 <img ng-src="{{post.user_image}}" />
                 <div class="username">{{post.username}}</div>
             </div>
-            <div class="caption">{{post.caption}}</div>
+            <div class="caption" ng-bind-html="post.caption"></div>
             <div class="source">{{post.source}}</div>
         </li>
     </ul>

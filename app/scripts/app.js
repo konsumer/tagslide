@@ -18,6 +18,7 @@ angular.module('tagslideApp', [
   'ngRoute',
   'ngCookies',
   'ngAnimate',
+  'ngSanitize',
   'ui.bootstrap'
 ])
   .config(function ($routeProvider, $sceProvider) {

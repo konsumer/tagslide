@@ -14,7 +14,9 @@ var Post = new mongoose.Schema({
 	"user_image": {type: mongoose.SchemaTypes.Url, required: true},
 	"caption": {type: String},
 	"date": {type: Date, required: true},
-	"approved": Boolean
+	"approved": Boolean,
+	"thumbnail": {type: mongoose.SchemaTypes.Url, required: true},
+	"link": {type: mongoose.SchemaTypes.Url, required: true}
 });
 
 module.exports = mongoose.model('Post', Post);

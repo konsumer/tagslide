@@ -5,7 +5,8 @@ var express = require('express'),
   io = require('socket.io').listen(server, { log: process.env.NODE_ENV=='development' })
   path = require('path'),
   mongoose = require('mongoose'),
-  Instagram = require('instagram-node-lib');
+  Instagram = require('instagram-node-lib'),
+  emoji = require('emoji');
 
 if (!process.env.BASE_URI){
   console.log('Please set the environment variable BASE_URI to an externally-facing URL for your webroot.');
@@ -90,7 +91,9 @@ function processTag(tag, max_tag_id, cb){
             "user_image": post.user.profile_picture,
             "date": created_time,
             "approved": false,
-            "caption": (post.caption && post.caption.text) ? post.caption.text : ""
+            "caption": (post.caption && post.caption.text) ? emoji.unifiedToHTML(post.caption.text) : "",
+            "thumbnail": (post.type == 'image') ? post.images.thumbnail.url : post.link + '/media?size=t',
+            "link": post.link
           });
 
           newPost.save(function(er){
@@ -186,10 +189,10 @@ io.sockets.on('connection', function (Socket) {
   // client is updating a post
   Socket.on('post', function(post, cb){
     console.log('save', post.id);
-    
-    Post.findOneAndUpdate({id: post.id}, {
+
+    var newPost = {
       approved: post.approved,
-      caption: (post.caption && post.caption.text) ? post.caption.text : "",
+      caption: (post.caption && !post.caption.search("</span>")) ? emoji.unifiedToHTML(post.caption) : "",
       date: post.date,
       id: post.id,
       media: post.media,
@@ -197,8 +200,12 @@ io.sockets.on('connection', function (Socket) {
       tag: post.tag,
       type: post.type,
       user_image: post.user_image,
-      username: post.username
-    }, {upsert: true}, cb);
+      username: post.username,
+      thumbnail: post.thumbnail,
+      link: post.link
+    };
+    
+    Post.findOneAndUpdate({id: post.id}, newPost, {upsert: true}, cb);
 
     Socket.broadcast.emit('post', post);
   });

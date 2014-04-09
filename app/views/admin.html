@@ -20,32 +20,31 @@
     <div class="clearfix" ng-repeat="tag in app.tags">
         <h3>#{{tag.tag}}</h3>
 
-        <div class="clearfix">
-            <h4>unapproved</h4>
-            <ul class="posts">
-                <li ng-animate ng-show="post.tag == tag.tag && !post.approved" ng-repeat="post in app.posts" class="col-sm-4 scale-fade">
-                    <div>
-                        <img class="img-responsive" ng-src="{{post.media}}" ng-if="post.type=='image'" />
-                        <video preload="metadata" class="img-responsive" controls muted ng-src="{{post.media}}" ng-if="post.type=='video'"></video>
-                        <button class="approve  btn btn-success" ng-click="approve(post)">approve</button>
-                        <div class="user">{{post.user.username}}</div>
-                    </div>
-                </li>
-            </ul>
-        </div>
+        <h4>unapproved</h4>
+        <ul class="media-list">
+          <li ng-animate ng-show="post.tag == tag.tag && !post.approved" ng-repeat="post in app.posts" class="media scale-fade list-group-item-warning">
+            <a class="pull-left" href="{{post.link}}" target="_new">
+              <img class="media-object" ng-src="{{post.thumbnail}}">
+            </a>
+            <div class="media-body">
+              <h5 class="media-heading">{{post.username}}</h5>
+              <p ng-bind-html="post.caption"></p>
+              <a class="approve btn btn-success btn-lg" href="" ng-click="approve(post)"><i class="glyphicon glyphicon-thumbs-up"></i></a>
+            </div>
+          </li>
+        </ul>
 
-        <div class="clearfix">
-            <h4>approved</h4>
-            <ul class="posts">
-                <li ng-animate ng-show="post.tag == tag.tag && post.approved" ng-repeat="post in app.posts" class="col-sm-4 scale-fade">
-                    <div>
-                        <img class="img-responsive" ng-src="{{post.media}}" ng-if="post.type=='image'" />
-                        <video height="100%" class="img-responsive" controls muted ng-src="{{post.media}}" ng-if="post.type=='video'"></video>
-                        <button class="approve btn btn-danger" ng-click="disapprove(post)">unapprove</button>
-                        <div class="user">{{post.user.username}}</div>
-                    </div>
-                </li>
-            </ul>
-        </div>  
-    </div>
+        <h4>approved</h4>
+        <ul class="media-list">
+          <li ng-animate ng-show="post.tag == tag.tag && post.approved" ng-repeat="post in app.posts" class="media scale-fade list-group-item-success">
+            <a class="pull-left" href="{{post.link}}" target="_new">
+              <img class="media-object" ng-src="{{post.thumbnail}}">
+            </a>
+            <div class="media-body">
+              <h5 class="media-heading">{{post.username}}</h5>
+              <p ng-bind-html="post.caption"></p>
+              <a class="approve btn btn-warning btn-lg" href="" ng-click="disapprove(post)"><i class="glyphicon glyphicon-thumbs-down"></i></a>
+            </div>
+          </li>
+        </ul>
 </div>

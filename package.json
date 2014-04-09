@@ -33,7 +33,8 @@
     "session-mongoose": "^0.4.1",
     "grunt-text-replace": "^0.3.11",
     "grunt-contrib-less": "^0.11.0",
-    "grunt-bower-task": "^0.3.4"
+    "grunt-bower-task": "^0.3.4",
+    "emoji": "^0.3.2"
   },
   "devDependencies": {
     "foreman": "^0.2.1"

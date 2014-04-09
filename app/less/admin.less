@@ -1,41 +1,20 @@
-& { // container
-}
-
-.posts {
-	ul {
-		margin:0;
-		padding:0;
-	}
-
-	li {
-		list-style:none;
-		padding: 10px;
-		position:relative;
-
-		.btn {
-			position:absolute;
-			top: 12px;
-			right: 12px;
-		}
-	}
-
-	.user {
-		position:absolute;
-		top: 12px;
-		left: 12px;
-		color: #fff;
-		text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-	}
-
-	video {
-		height: 100%;
-		width: 100%;
-	}
-}
-
 .alerts {
 	position:fixed;
 	top: 10px;
 	z-index: 100;
 	opacity: 0.9;
+}
+
+li.media {
+	position:relative;
+	.approve {
+		position:absolute;
+		top: 2px;
+		right: 2px;
+		font-size: 20px;
+		padding: 5px;
+	}
+	.media-heading {
+		padding-top: 20px;
+	}
 }
