@@ -20,17 +20,23 @@ angular.module('tagslideApp', [
   'ngAnimate',
   'ui.bootstrap'
 ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, $sceProvider) {
+    $sceProvider.enabled(false);
+
     $routeProvider
       .when('/admin', {
         templateUrl: 'views/admin.html',
         controller: 'AdminCtrl'
       })
-      .when('/:tag', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+      .when('/tag/:tag', {
+        templateUrl: 'views/tag.html',
+        controller: 'TagCtrl'
+      })
+      .when('/', {
+        templateUrl: 'views/list.html',
+        controller: 'ListCtrl'
       })
       .otherwise({
-        redirectTo: defaultTag
+        redirectTo: '/'
       });
   });

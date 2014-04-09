@@ -43,7 +43,7 @@ html, body {
 //@import "@{bootstrap_location}pager.less";
 @import "@{bootstrap_location}labels.less";
 //@import "@{bootstrap_location}badges.less";
-//@import "@{bootstrap_location}jumbotron.less";
+@import "@{bootstrap_location}jumbotron.less";
 @import "@{bootstrap_location}thumbnails.less";
 @import "@{bootstrap_location}alerts.less";
 //@import "@{bootstrap_location}progress-bars.less";
@@ -63,11 +63,11 @@ html, body {
 @import "@{bootstrap_location}utilities.less";
 @import "@{bootstrap_location}responsive-utilities.less";
 
-body.theme_dark{
+.theme-dark{
 	@import url("themes/dark.less");
 }
 
-body.theme_light{
+.theme-light{
 	@import url("themes/light.less");
 }
 
@@ -75,5 +75,27 @@ body.theme_light{
 	@import url("admin.less");
 }
 
-@import "ng-animation.css";
+// @import "ng-animation.css";
+
+//  default animation for ng-hide: fade in/out
+.ng-animate {
+	transition: all 2s;
+}
+
+.ng-animate.ng-hide-add {
+	display: block !important;
+	opacity: 1;
+}
+.ng-animate.ng-hide-add.ng-hide-add-active {
+	display: block !important;
+	opacity: 0;
+}
+.ng-animate.ng-hide-remove {
+	display: block !important;
+	opacity: 0;
+}
+.ng-animate.ng-hide-remove.ng-hide-remove-active {
+	display: block !important;
+	opacity: 1;
+}
 
