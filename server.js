@@ -29,6 +29,7 @@ if (!process.env.SESSION_SECRET){
 
 var port = Number(process.env.PORT || 5000);
 server.listen(port);
+console.log('Listening on http://0.0.0.0:'+port);
 
 mongoose.connect(process.env.MONGOLAB_URI);
 mongoose.connection.on('error', function(e){
