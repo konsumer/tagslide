@@ -24,4 +24,14 @@ angular.module('controllers')
 		post.approved = false;
 		savePost(post);
 	}
+
+	$scope.deleteTag = function(tag){
+		Socket.emit('tag/remove', tag, function(err){
+			if (err){
+				console.log('tag delete error', err);
+			}else{
+				console.log('tag deleted.');
+			}
+		});
+	}
 });

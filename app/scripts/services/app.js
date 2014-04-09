@@ -27,9 +27,24 @@ angular.module('services')
 
 	    // a new tag came in
 	    Socket.on('tag', function(tag){
-	    	if (!_.findWhere(self.tags, {tag: tag.tag})){
+	    	if (_.findIndex(self.tags, {tag: tag.tag}) === -1){
 	    		self.tags.push(tag);
 	    	}
+	    });
+
+	    // set all posts at once
+	    Socket.on('posts', function(posts){
+	    	self.posts = posts;
+			self.approved = self.posts.filter(function(p){
+	    		return p.approved;
+	    	}).map(function(p){
+	    		return p.id;
+	    	});
+	    });
+
+	    // set all tags at once
+	    Socket.on('tags', function(tags){
+	    	self.tags = tags;
 	    });
 	}
 });

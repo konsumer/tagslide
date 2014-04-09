@@ -87,7 +87,7 @@ function processTag(tag, max_tag_id, cb){
 
           newPost.save(function(er){
             if (er) return cb(er);
-            io.sockets.send('post', newPost);
+            io.sockets.emit('post', newPost);
 
             if (pagination && pagination.max_tag_id){
               processTag(tag, pagination.max_tag_id, cb);
@@ -132,8 +132,7 @@ app.post('/instagram/:tag', function(req, res){
 });
 
 // generate test-tag, 5 days before & after now
-// var now = Date.now();
-// (new Tag({tag:'instagramvideo', start:now-(86400000*5), end: now+(86400000*5)})).save();
+//var now = Date.now(); (new Tag({tag:'instagramvideo', start:now-(86400000*5), end: now+(86400000*5)})).save();
 
 // get current posts in each tag-range, up-front
 //  Instagram.media.unsubscribe_all();
@@ -164,16 +163,12 @@ io.sockets.on('connection', function (Socket) {
   // on connect, give client some tags & posts
   Tag.find({}, function(er,tags){
     if (er) return console.log('error getting tags', er);
-    tags.forEach(function(tag){
-      Socket.emit('tag', tag);
-    });
+    Socket.emit('tags', tags);
   });
   
   Post.find({}, function(er,posts){
     if (er) return console.log('error getting posts', er);
-    posts.forEach(function(post){
-      Socket.emit('post', post);
-    });
+    Socket.emit('posts', posts);
   });
 
   // WARNING: admin-party
@@ -211,4 +206,25 @@ io.sockets.on('connection', function (Socket) {
 
     Socket.broadcast.emit('tag', tag);
   });
+
+  // client is removing a tag: remove tag & all posts tagged with it, then send new data to all clients, including initiator
+  Socket.on('tag/remove', function(tag, cb){
+    Tag.findOneAndRemove({tag: tag.tag}, function(er){
+      if (er) return console.log('error removing tag', er);
+      
+      Post.remove({tag: tag.tag}, function(er){
+        if (er) return console.log('error removing posts with tag', er);
+        Post.find({}, function(er,posts){
+          if (er) return console.log('error getting posts', er);
+          Socket.emit('posts', posts);
+        });
+      });
+
+      Tag.find({}, function(er,tags){
+        if (er) return console.log('error getting tags', er);
+        io.sockets.emit('tags', tags);
+      });
+    });
+  });
+
 });
