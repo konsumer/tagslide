@@ -91,10 +91,13 @@ function processTag(tag, max_tag_id, cb){
             "user_image": post.user.profile_picture,
             "date": created_time,
             "approved": false,
-            "caption": (post.caption && post.caption.text) ? emoji.unifiedToHTML(post.caption.text) : "",
             "thumbnail": (post.type == 'image') ? post.images.thumbnail.url : post.link + '/media?size=t',
             "link": post.link
           });
+
+          if (post.caption && post.caption.text){
+            newPost.caption = emoji.unifiedToHTML(post.caption.text);
+          }
 
           newPost.save(function(er){
             if (er) return cb(er);
@@ -192,7 +195,7 @@ io.sockets.on('connection', function (Socket) {
 
     var newPost = {
       approved: post.approved,
-      caption: (post.caption && !post.caption.search("</span>")) ? emoji.unifiedToHTML(post.caption) : "",
+      caption: (post.caption && !post.caption.search("</span>")) ? emoji.unifiedToHTML(post.caption) : post.caption,
       date: post.date,
       id: post.id,
       media: post.media,
