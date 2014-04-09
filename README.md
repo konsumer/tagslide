@@ -20,5 +20,4 @@ To set settings:
 
 *  Install dependencies with `npm install`
 *  Compile production version with `grunt`
-*  Run `bower install -save PACKAGE` to add a client-side dependency
-*  Run `grunt bower-install` to update client-side dependencies
+*  Run `grunt bower` to add a client-side dependency & update HTML
