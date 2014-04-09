@@ -338,11 +338,6 @@ module.exports = function (grunt) {
     'clean:less'
   ]);
 
-  grunt.registerTask('bower', [
-    'bower',
-    'bower-install'
-  ]);
-
   grunt.registerTask('default', [
     'build'
   ]);

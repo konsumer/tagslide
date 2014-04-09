@@ -31,4 +31,4 @@ SESSION_SECRET=<A RANDOM STRING>
 *  Install dependencies with `npm install`
 *  Run local dev version with `npm start`
 *  Compile production version with `grunt`
-*  Run `grunt bower` to add a client-side dependency & update HTML
+*  Run `bower install <PACKAGE> && grunt bower-install` to add a client-side dependency & update HTML
