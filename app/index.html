@@ -8,12 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>tagsllide</title>
-    <!-- build:css styles/vendor.css -->
+    <!-- build:css styles/site.css -->
     <link rel="stylesheet/less" type="text/css" href="less/site.less" />
-    <!-- bower:css -->
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css({.tmp,app}) styles/main.css -->
     <!-- endbuild -->
   </head>
   <body ng-app="tagslideApp">
@@ -24,8 +20,10 @@
     <div ng-view></div>
 
     <!--[if lt IE 9]>
+    <!-- build:js scripts/ie.js -->
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
+    <!-- endbuild -->
     <![endif]-->
 
     <!-- DEV --><script src="bower_components/less/dist/less-1.7.0.js"></script><!-- /DEV -->
@@ -43,6 +41,7 @@
     <!-- endbuild -->
 
     <script src="/socket.io/socket.io.js"></script>
+    
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/factories/socket.js"></script>
