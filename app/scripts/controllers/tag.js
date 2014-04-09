@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('controllers')
-.controller('TagCtrl', function ($scope, $sce, $interval, $timeout, $routeParams, $animate, App) {
+.controller('TagCtrl', function ($scope, $sce, $interval, $timeout, $routeParams, $animate, App, fullscreen) {
 	// TODO: handle successful route so refresh isn't needed
 	$scope.app = new App();
 	$scope.theme = 'dark';
@@ -14,4 +14,6 @@ angular.module('controllers')
 	
 	$timeout(updateActive, 500);
 	$interval(updateActive,3000);
+
+	$scope.fullscreen = fullscreen;
 });
