@@ -89,7 +89,8 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      server: '.tmp'
+      server: '.tmp',
+      less: '<%= yeoman.dist %>/css'
     },
 
     // Add vendor prefixed styles
@@ -137,7 +138,7 @@ module.exports = function (grunt) {
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
     useminPrepare: {
-      html: '<%= yeoman.app %>/index.html',
+      html: '<%= yeoman.dist %>/index.html',
       options: {
         dest: '<%= yeoman.dist %>'
       }
@@ -179,7 +180,7 @@ module.exports = function (grunt) {
           collapseWhitespace: true,
           collapseBooleanAttributes: true,
           removeCommentsFromCDATA: true,
-          removeOptionalTags: true
+          removeOptionalTags: false
         },
         files: [{
           expand: true,
@@ -221,7 +222,7 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
-            '*.html',
+            '.tmp/*.html',
             'views/{,*/}*.html',
             'bower_components/**/*',
             'images/{,*/}*.{webp}',
@@ -279,25 +280,62 @@ module.exports = function (grunt) {
     // concat: {
     //   dist: {}
     // },
+    
+    replace: {
+      dist:{
+        src:['<%= yeoman.app %>/index.html'],
+        dest:'<%= yeoman.dist %>//index.html',
+        replacements: [
+          // remove anything wrapped with DEV
+          {
+            from: /<!-- DEV -->.+<!-- \/DEV -->/g,
+            to: ''
+          },
+          // a bit fragile....
+          {
+            from: /<link rel="stylesheet\/less" type="text\/css" href="less\/(.+)\.less" \/>/g,
+            to: '<link rel="stylesheet" type="text/css" href="css/$1.css" />'
+          }
+        ]
+      }
+    },
+
+    less: {
+      dist:{
+        options: {
+          paths: ["<%= yeoman.app %>/less", '<%= yeoman.app %>/bower_components']
+        },
+        files: {
+          "<%= yeoman.dist %>/css/site.css": "<%= yeoman.app %>/less/site.less"
+        }
+      }
+    }
+
+
   });
 
+
+  //TODO: replace connect with express for auto-reload of the app
 
 
   grunt.registerTask('build', [
     'clean:dist',
     'bower-install',
+    'copy:dist',
+    'replace:dist',
+    'less:dist',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
     'concat',
     'ngmin',
-    'copy:dist',
     'cdnify',
     'cssmin',
     'uglify',
     'rev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'clean:less'
   ]);
 
   grunt.registerTask('default', [
