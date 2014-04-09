@@ -132,7 +132,7 @@ app.post('/instagram/:tag', function(req, res){
 });
 
 // generate test-tag, 5 days before & after now
-//var now = Date.now(); (new Tag({tag:'instagramvideo', start:now-(86400000*5), end: now+(86400000*5)})).save();
+// var now = Date.now(); (new Tag({tag:'instagramvideo', start:now-(86400000*5), end: now+(86400000*5)})).save();
 
 // get current posts in each tag-range, up-front
 //  Instagram.media.unsubscribe_all();
@@ -205,6 +205,10 @@ io.sockets.on('connection', function (Socket) {
     }, {upsert: true}, cb);
 
     Socket.broadcast.emit('tag', tag);
+
+    processTag(tag, false,  function(er){
+      if (er) console.log('tag error', er)
+    });
   });
 
   // client is removing a tag: remove tag & all posts tagged with it, then send new data to all clients, including initiator
