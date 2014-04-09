@@ -55,7 +55,14 @@ Instagram.set('client_id', process.env.INSTAGRAM_ID);
 Instagram.set('client_secret', process.env.INSTAGRAM_SECRET);
 Instagram.set('maxSockets', 10);
 
-app.use(express.static(path.join(__dirname, 'app')));
+app.configure('development', function(){
+  app.use(express.static(path.join(__dirname, 'app')));
+});
+
+app.configure('production', function(){
+  app.use(express.static(path.join(__dirname, 'dist')));
+});
+
 
 // grab recent posts for a tag
 function processTag(tag, max_tag_id, cb){
