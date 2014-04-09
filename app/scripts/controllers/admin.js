@@ -26,12 +26,14 @@ angular.module('controllers')
 	}
 
 	$scope.deleteTag = function(tag){
-		Socket.emit('tag/remove', tag, function(err){
-			if (err){
-				console.log('tag delete error', err);
-			}else{
-				console.log('tag deleted.');
-			}
-		});
+		if (confirm('Are you sure you want to delete #' + tag.tag + ', and all posts associated with it?')){
+			Socket.emit('tag/remove', tag, function(err){
+				if (err){
+					console.log('tag delete error', err);
+				}else{
+					console.log('tag deleted.');
+				}
+			});
+		}
 	}
 });
