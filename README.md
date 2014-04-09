@@ -21,7 +21,7 @@ If you are not using heroku, just edit your `.env` file to look like this:
 ```
 INSTAGRAM_ID=<YOURS>
 INSTAGRAM_SECRET=<YOURS>
-URL=<FULL WEB-ACCESSABLE URL>
+BASE_URI=<FULL WEB-ACCESSABLE URL>
 MONGOLAB_URI=<YOURS>
 SESSION_SECRET=<A RANDOM STRING>
 ```

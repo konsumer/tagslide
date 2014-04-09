@@ -7,8 +7,8 @@ var express = require('express'),
   mongoose = require('mongoose'),
   Instagram = require('instagram-node-lib');
 
-if (!process.env.URL){
-  console.log('Please set the environment variable URL to an externally-facing URL for your webroot.');
+if (!process.env.BASE_URI){
+  console.log('Please set the environment variable BASE_URI to an externally-facing URL for your webroot.');
   process.exit(1);
 }
 
@@ -157,7 +157,7 @@ Tag.find({}, function(er, tags){
       object: 'tag',
       object_id: tag.tag,
       aspect: 'media',
-      callback_url: process.env.URL + 'instagram/' + tag.tag,
+      callback_url: process.env.BASE_URI + 'instagram/' + tag.tag,
       type: 'subscription',
       id: 'tag:' + tag.tag
     });
