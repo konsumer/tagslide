@@ -41,20 +41,22 @@ require("mongoose-types").loadTypes(mongoose);
 var Post =require('./models/Post'),
   Tag =require('./models/Tag');
 
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(express.methodOverride());
-app.use(express.cookieParser());
-app.use(express.session({
-  secret:process.env.SESSION_SECRET,
-  store: new SessionStore({
-      connection: mongoose.connection
-  })
-}));
-
 Instagram.set('client_id', process.env.INSTAGRAM_ID);
 Instagram.set('client_secret', process.env.INSTAGRAM_SECRET);
 Instagram.set('maxSockets', 10);
+
+app.configure(function(){
+  app.use(express.json());
+  app.use(express.urlencoded());
+  app.use(express.methodOverride());
+  app.use(express.cookieParser());
+  app.use(express.session({
+    secret:process.env.SESSION_SECRET,
+    store: new SessionStore({
+        connection: mongoose.connection
+    })
+  }));
+});
 
 app.configure('development', function(){
   app.use(express.static(path.join(__dirname, 'app')));

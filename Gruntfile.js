@@ -90,20 +90,21 @@ module.exports = function (grunt) {
         }]
       },
       server: '.tmp',
-      less: '<%= yeoman.dist %>/css'
+      less: '<%= yeoman.dist %>/css',
+      bower: '<%= yeoman.dist %>/bower-components'
     },
 
     // Add vendor prefixed styles
     autoprefixer: {
       options: {
-        browsers: ['last 1 version']
+        browsers: ['> 1%', 'last 2 versions']
       },
       dist: {
         files: [{
           expand: true,
-          cwd: '.tmp/styles/',
+          cwd: '.tmp/concat/styles/',
           src: '{,*/}*.css',
-          dest: '.tmp/styles/'
+          dest: '.tmp/concat/styles/'
         }]
       }
     },
@@ -251,6 +252,12 @@ module.exports = function (grunt) {
       ]
     },
 
+    cssmin:{
+      options:{
+        keepSpecialComments:0
+      }
+    },
+
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
     // minification. These next options are pre-configured if you do not wish
     // to use the Usemin blocks.
@@ -326,8 +333,8 @@ module.exports = function (grunt) {
     'less:dist',
     'useminPrepare',
     'concurrent:dist',
-    'autoprefixer',
     'concat',
+    'autoprefixer',
     'ngmin',
     'cdnify',
     'cssmin',
@@ -335,7 +342,8 @@ module.exports = function (grunt) {
     'rev',
     'usemin',
     'htmlmin',
-    'clean:less'
+    'clean:less',
+    'clean:bower'
   ]);
 
   grunt.registerTask('default', [

@@ -11,7 +11,11 @@ angular.module('controllers')
 			if (err){
 				addAlert(err.message, 'danger');
 			}else{
-				addAlert('post approved.', 'success');
+				if (post.approved){
+					addAlert('post approved.', 'success');
+				}else{
+					addAlert('post unapproved.', 'success');
+				}
 			}
 		});
 	}
