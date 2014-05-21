@@ -1,7 +1,6 @@
-.DS_Store
 node_modules
-app/bower_components
-dist
+webroot
+bower_components
 .env
-.tmp
-newrelic_agent.log
+.DS_Store
+npm-debug.log

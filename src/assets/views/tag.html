@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="modal-header">
 	<h3>Tag #{{obj.tag}}</h3>
 </div>
@@ -33,3 +34,30 @@
 	<button class="btn btn-primary" ng-click="save(obj)"><span ng-show="!obj.tag">create</span><span ng-show="obj.tag">save</span></button>
     <button class="btn btn-warning" ng-click="cancel()">cancel</button>
 </div>
+=======
+<div class="theme-{{theme}}">
+    <h1 class="branding">Branding</h1>
+    <div class="instructions">Post an instagram image/video with #{{current_tag}}</div>
+    <ul class="slides">
+        <li ng-animate ng-show="active == post.id" class="slide" ng-repeat="post in app.posts">
+            <div class="media">
+                <img ng-if="post.type == 'image'" ng-src="{{post.media}}" />
+                <video ng-if="post.type == 'video'" autoplay muted loop ng-src="{{post.media}}"></video>
+            </div>
+            <div class="user">
+                <img ng-src="{{post.user_image}}" />
+                <div class="username">{{post.username}}</div>
+            </div>
+            <div class="caption" ng-bind-html="post.caption"></div>
+            <div class="source">{{post.source}}</div>
+        </li>
+    </ul>
+
+    <div class="noapproved" ng-if="!app.approved.length">
+        There are no approved videos in #{{current_tag}}
+    </div>
+
+    <a href="" ng-click="fullscreen()" class="btn btn-large btn-primary fullscreen">fullscreen</a>
+
+</div>
+>>>>>>> 21163bd9ca1e661671f8b6c75f54234d84c21402

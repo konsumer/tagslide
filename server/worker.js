@@ -1,18 +1,14 @@
+require('./config');
+
 var express = require('express'),
 	mongoose = require('mongoose'),
 	Post = require('./models/Post'),
 	Tag = require('./models/Tag'),
+	chalk = require('chalk'),
 	mers = require('mers');
-
-require('newrelic');
 
 var app = express();
 app.use(express.compress());
-
-if (!process.env.MONGOLAB_URI){
-	console.log('Please set the environment variable MONGOLAB_URI.');
-	process.exit(1);
-}
 
 mongoose.connect(process.env.MONGOLAB_URI);
 mongoose.connection.on('error', function(e){
@@ -25,8 +21,6 @@ app.use(express.errorHandler({
 }));
 app.use(express.logger('dev')); 
 
-app.use(express.favicon('app/favicon.ico'));
-
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
@@ -34,7 +28,7 @@ app.use(express.cookieParser());
 
 app.use(app.router);
 
-app.use('/', express.static('app'));
+app.use('/', express.static('webroot'));
 
 // TODO: require auth on all but /rest/post/finder/tag/:tag
 // https://github.com/jspears/mers/issues/25
@@ -52,9 +46,12 @@ app.all('/callback/instagram/tag/:tag', function(req, res){
 });
 
 
-var port = Number(process.env.PORT || 5000);
-app.listen(port, function() {
-	console.log('Listening on ' + port);
-});
+module.exports.startServer= function(){
+	var port = Number(process.env.PORT || 5000);
+	app.listen(port, function() {
+		console.log(chalk.white('Listening on ') + chalk.blue(chalk.underline('http://0.0.0.0:' + port)));
+	});
+}
 
-module.exports = app;
+if(require.main === module)
+	module.exports.startServer();

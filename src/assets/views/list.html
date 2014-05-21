@@ -1,0 +1,16 @@
+<div class="jumbotron">
+	<div class="container">
+		<h1>tagslide</h1>
+	</div>
+</div>
+<div class="container">
+	<div ng-if="app.tags.length > 0">
+		<h2>available Tags</h2>
+		<ul>
+			<li ng-repeat="tag in app.tags"><a href="#/tag/{{tag.tag}}">{{tag.tag}}</a></li>
+		</ul>
+	</div>
+	<div ng-if="!app.tags || app.tags.length == 0">
+		<h2>no tags available.</h2>
+	</div>
+</div>

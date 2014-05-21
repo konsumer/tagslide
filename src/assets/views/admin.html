@@ -1,0 +1,106 @@
+<<<<<<< HEAD
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    body{
+        overflow:auto;
+    }
+</style>
+
+<div class="container">
+    <h1>tagslide admin</h1>
+
+    <h2>tags <button ng-click="form({})" class="btn btn-primary">create</button></h2>
+
+    <h3>modify</h3>
+    <ul>
+        <li ng-repeat="tag in tags">
+            <a target="_new" href="/#{{tag.tag}}" class="btn btn-default">{{tag.tag}}</a>
+            <a ng-click="form(tag)" class="btn btn-default">edit</a>
+=======
+<div class="admin container">
+    <div class="container alerts">
+        <alert class="bouncy-slide-down" ng-animate ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+    </div>
+    
+    <h1>tagslide admin</h1>
+
+    <h2>tags <button ng-click="tagForm({})" class="btn btn-primary">create</button></h2>
+
+    <h3>modify</h3>
+    <ul>
+        <li ng-repeat="tag in app.tags">
+            <a target="_new" href="#/tag/{{tag.tag}}" class="btn btn-default">{{tag.tag}}</a>
+            <a ng-click="tagForm(tag)" class="btn btn-default">edit</a>
+>>>>>>> 21163bd9ca1e661671f8b6c75f54234d84c21402
+            <button ng-click="deleteTag(tag)" class="btn btn-danger">delete</button>
+        </li>
+    </ul>
+
+<<<<<<< HEAD
+
+    <h2>posts</h2>
+
+    <div class="clearfix" ng-repeat="tag in tags">
+        <h3>#{{tag.tag}}</h3>
+
+        <div class="clearfix">
+            <h4>unapproved</h4>
+            <ul class="posts">
+                <li ng-repeat="post in posts | isNotApproved | hasTag:tag.tag" class="col-sm-4">
+                    <div>
+                        <img class="img-responsive" ng-src="{{post.media}}" ng-if="post.type=='image'" />
+                        <video class="img-responsive" controls muted ng-src="{{post.media}}" ng-if="post.type=='video'"></video>
+                        <button class="approve  btn btn-success" ng-click="approve(post)">approve</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="clearfix">
+            <h4>approved</h4>
+            <ul class="posts">
+                <li ng-repeat="post in posts | isApproved | hasTag:tag.tag" class="col-sm-4">
+                    <div>
+                        <img class="img-responsive" ng-src="{{post.media}}" ng-if="post.type=='image'" />
+                        <video class="img-responsive" controls muted ng-src="{{post.media}}" ng-if="post.type=='video'"></video>
+                        <button class="approve btn btn-danger" ng-click="approve(post)">unapprove</button>
+                    </div>
+                </li>
+            </ul>
+        </div>  
+    </div>
+=======
+    <h2>posts</h2>
+    <div class="clearfix" ng-repeat="tag in app.tags">
+        <h3>#{{tag.tag}}</h3>
+
+        <h4>unapproved</h4>
+        <ul class="media-list">
+          <li ng-animate ng-show="post.tag == tag.tag && !post.approved" ng-repeat="post in app.posts" class="media scale-fade list-group-item-warning">
+            <a class="pull-left" href="{{post.link}}" target="_new">
+              <img class="media-object" ng-src="{{post.thumbnail}}">
+            </a>
+            <div class="media-body">
+              <h5 class="media-heading">{{post.username}}</h5>
+              <p ng-bind-html="post.caption"></p>
+              <a class="approve btn btn-success btn-lg" href="" ng-click="approve(post)"><i class="glyphicon glyphicon-thumbs-up"></i></a>
+            </div>
+          </li>
+        </ul>
+
+        <h4>approved</h4>
+        <ul class="media-list">
+          <li ng-animate ng-show="post.tag == tag.tag && post.approved" ng-repeat="post in app.posts" class="media scale-fade list-group-item-success">
+            <a class="pull-left" href="{{post.link}}" target="_new">
+              <img class="media-object" ng-src="{{post.thumbnail}}">
+            </a>
+            <div class="media-body">
+              <h5 class="media-heading">{{post.username}}</h5>
+              <p ng-bind-html="post.caption"></p>
+              <a class="approve btn btn-warning btn-lg" href="" ng-click="disapprove(post)"><i class="glyphicon glyphicon-thumbs-down"></i></a>
+            </div>
+          </li>
+        </ul>
+>>>>>>> 21163bd9ca1e661671f8b6c75f54234d84c21402
+</div>

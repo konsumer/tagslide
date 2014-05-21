@@ -1,3 +1,4 @@
+
 var cluster = require('cluster');
 
 // start a cluster the size of available CPU cores
@@ -21,5 +22,5 @@ if (cluster.isMaster) {
 	cron();
 
 } else {
-	var app = require('./server/worker.js');
+	require('./server/worker.js').startServer();
 }

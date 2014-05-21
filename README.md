@@ -16,9 +16,19 @@ To set settings:
 
 	heroku config:push --overwrite --interactive
 
+If you are not using heroku, just edit your `.env` file to look like this:
+
+```
+INSTAGRAM_ID=<YOURS>
+INSTAGRAM_SECRET=<YOURS>
+BASE_URI=<FULL WEB-ACCESSABLE URL>
+MONGOLAB_URI=<YOURS>
+SESSION_SECRET=<A RANDOM STRING>
+```
+
 ## Development
 
 *  Install dependencies with `npm install`
-*  Compile production version with `grunt`
-*  Run `bower install -save PACKAGE` to add a client-side dependency
-*  Run `grunt bowerInstall` to update client-side dependencies
+*  Run local dev server with `npm start`
+*  Project uses [bower](http://bower.io/) tomanage client-side dependencies
+*  Project uses [brunch](http://brunch.io/) to manage assets, building production static files & running local dev server. Source files in `src/` get built into production files in `webroot/`
