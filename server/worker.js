@@ -47,6 +47,8 @@ function processTag(tag, max_tag_id, cb){
   Post.find({tag: tag.tag}, 'id', function(er,p){
     if (er) return cb(er);
     var posts = p.map(function(post){ return post.id; });
+
+    console.log('posts', posts);
     
     var query = { name: tag.tag, error:cb, complete: function(data, pagination){
       data.forEach(function(post){
@@ -71,6 +73,8 @@ function processTag(tag, max_tag_id, cb){
             newPost.caption = emoji.unifiedToHTML(post.caption.text);
           }
 
+          console.log(newPost);
+
           newPost.save(function(er){
             if (er) return cb(er);
             io.sockets.emit('post', newPost);
@@ -94,6 +98,8 @@ function processTag(tag, max_tag_id, cb){
     if (max_tag_id){
       query.max_tag_id=max_tag_id;
     }
+
+    console.log('query', query);
 
     Instagram.tags.recent(query);
   });

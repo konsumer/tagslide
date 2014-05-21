@@ -1,39 +1,22 @@
 /**
- * A post that has been tagged, with an image or video
- * @type {mongoose.Model}
+ * Model that  represents a post that has been approved by an admin
+ * @type {Model}
  */
-
-var mongoose = require('mongoose'),
-	mongooseTypes = require("mongoose-types"),
-	Tag = require('./Tag');
-
-mongooseTypes.loadTypes(mongoose);
+var mongoose = require('mongoose');
 
 var Post = new mongoose.Schema({
-	"id": {type: String, required: true},
-	"media": {type: mongoose.SchemaTypes.Url, required:true},
-	"user": {type: String, required: true},
-	"user_img": {type: mongoose.SchemaTypes.Url, required:true},
-	"tags": [String],
-	"type": { type: String, enum: ["video", "image"], required:true },
+	"id": {type: String, required: true, unique: true},
 	"source": { type: String, enum: ["twitter", "instagram"], required:true },
-	"created": {type: Date, required: true},
-	"saved": { type: Date, default: Date.now },
-	"caption": String,
-	"approved": { type: Boolean, default: false }
+	"tag": {type: String, required: true},
+	"type": { type: String, enum: ["video", "image"], required:true },
+	"media": {type: mongoose.SchemaTypes.Url, required: true},
+	"username": {type: String, required: true},
+	"user_image": {type: mongoose.SchemaTypes.Url, required: true},
+	"caption": {type: String},
+	"date": {type: Date, required: true},
+	"approved": Boolean,
+	"thumbnail": {type: mongoose.SchemaTypes.Url, required: true},
+	"link": {type: mongoose.SchemaTypes.Url, required: true}
 });
-
-// allows serachbytag: /rest/post/finder/tag/:tag
-// gets only approved Posts
-Post.statics.tag = function(q, tag){
-	q.tags = tag || q.tags;
-	q.approved = true;
-	return this.find(q);
-}
-
-// collect all old posts for a tag (for pre-realtime monitoring)
-Post.statics.igCollectArchive = function(tag, cb){
-
-}
 
 module.exports = mongoose.model('Post', Post);
