@@ -22,15 +22,11 @@ if(!process.env.BASE_URI){
 if (!process.env.BASE_URI)
 	complainAndDie('Please set the environment variable BASE_URI to an externally-facing host for your webroot.');
 
-if (!process.env.URL)
-	complainAndDie('Please set the environment variable URL to an externally-facing host for your webroot.');
-
 if (!process.env.MONGO_URI && !process.env.MONGOLAB_URI)
 	complainAndDie('Please set the environment variable MONGO_URI or MONGOLAB_URI.');
 
 if (!process.env.SESSION_SECRET)
 	complainAndDie('Please set the environment variable SESSION_SECRET to some random text.');
-
 
 if (!process.env.INSTAGRAM_ID)
 	complainAndDie('Please set the environment variable INSTAGRAM_ID toyour Instagram ID.');
