@@ -1,60 +1,100 @@
 'use strict';
 
 angular.module('controllers')
-  .controller('Admin', function ($scope, $sce, $modal, Tag, Post, $interval) {
-	function updateTags(){
-		Tag.query({}, function(tags){
-			$scope.tags = tags;
+.controller('AdminCtrl', function ($scope, $rootScope, $modal, $timeout, App, Socket) {
+	$scope.app = $rootScope.app;
+
+	$scope.alerts = [];
+
+	function savePost(post){
+		Socket.emit('post', post, function(err){
+			if (err){
+				addAlert(err.message, 'danger');
+			}else{
+				if (post.approved){
+					addAlert('post approved.', 'success');
+				}else{
+					addAlert('post unapproved.', 'success');
+				}
+			}
 		});
 	}
-	updateTags();
 
-	function updatePosts(){
-	    Post.findByTag({tag:'instagramvideo'},function(data){
-	    	if ($scope.posts){
-	    		var ids = $scope.posts.map(function(p){ return p.id; });
-	    		data.forEach(function(p){
-					if (ids.indexOf(p.id) === -1){
-						$scope.posts.push(p);
-					}
-	    		});
-	    	}else{
-	    		$scope.posts = data;
-	    	}
+	$scope.approve = function(post){
+		post.approved = true;
+		savePost(post);
+	}
+
+	$scope.disapprove = function(post){
+		post.approved = false;
+		savePost(post);
+	}
+
+	$scope.deleteTag = function(tag){
+		if (confirm('Are you sure you want to delete #' + tag.tag + ', and all posts associated with it?')){
+			Socket.emit('tag/remove', tag, function(err){
+				if (err){
+					addAlert(err.message, 'danger');
+				}else{
+					addAlert('tag removed.', 'success');
+				}
+			});
+		}
+	}
+
+	$scope.tagForm = function(tag){
+		var modalInstance = $modal.open({
+	      templateUrl: 'views/tagForm.html',
+	      controller: ModalInstanceCtrl,
+	      resolve: {
+	        thing: function () {
+	          return tag;
+	        }
+	      }
+	    });
+
+	    modalInstance.result.then(function (tag) {
+	    	Socket.emit('tag', tag, function(err){
+				if (err){
+					addAlert(err.message, 'danger');
+				}else{
+					addAlert('tag saved.', 'success');
+				}
+			});
 	    });
 	}
-	$interval(updatePosts, 30000);
-	updatePosts();
 
-  	$scope.deleteTag = function(tag){
-		if(confirm('Are you sure you want to delete "' + tag.tag + '"? All posts that are tagged with this will also be deleted.')){
-			Tag.remove({tag:tag['_id']}, updateTags);
-		}  		
-  	}
+	/**
+	 * Action for close button of Alert
+	 * @param  {Number} index   The index of the window
+	 */
+	$scope.closeAlert = function(index) {
+		$scope.alerts.splice(index, 1);
+	};
+	
+	/**
+	 * Add an alert message that will remove itself
+	 * @param {String} msg    Your message
+	 * @param {String} type   'success', 'info', 'warning', 'danger'
+	 */
+	var hideTimeout;
+	function addAlert(msg, type){
+		type = type || 'info';
+		var l = $scope.alerts.length +0;
+		$scope.alerts.push({type:type, msg:msg});
+		if (hideTimeout) $timeout.cancel( hideTimeout );
+		hideTimeout=$timeout(function(){ $scope.alerts=[]; }, 3000);
+	}
+});
 
-  	$scope.approve = function(post){
-  		var p = Post.get({'post': post['_id']}, function(){
-  			p.approved = post.approved;
-  			p.$save(updatePosts);
-  		})
-  	}
+var ModalInstanceCtrl = function ($scope, $modalInstance, thing) {
+  $scope.thing = thing;
 
-  	$scope.form = function(object){
-  		formModal('tag', $modal, object)
-	  		.result.then(function (newT) {
-	  			function saveTag(tag){
-  					tag.tag = newT.tag;
-	  				tag.start = newT.start;
-	  				tag.end = newT.end;
-	  				tag.$save(function(er){
-	  					console.log(er);
-	  				});
-	  			}
-	  			if (newT['_id']){
-		  			Tag.get({tag:newT['_id']}, saveTag);
-		  		}else{
-		  			saveTag(new Tag());
-		  		}
-		    });
-  	}
-  });
+  $scope.ok = function () {
+    $modalInstance.close($scope.thing);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+};

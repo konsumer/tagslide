@@ -1,42 +1,60 @@
 'use strict';
 
-var defaultTag = 'instagramvideo';
-
+var defaultTag = "instagramvideo";
 
 angular.module('controllers', []);
-angular.module('filters', []);
 angular.module('services', []);
+angular.module('filters', []);
+angular.module('directives', []);
+angular.module('factories', []);
 
-require('./controllers/Admin');
-require('./controllers/FormModal');
-require('./controllers/Main');
-require('./filters/hasTag');
-require('./filters/isApproved');
-require('./filters/isNotApproved');
+require('./controllers/admin');
+require('./controllers/list');
+require('./controllers/tag');
+require('./factories/socket');
 require('./services/fullscreen');
-require('./services/Post');
-require('./services/Tag');
+require('./services/app');
+
 
 angular.module('tagslide', [
-	'controllers',
-	'filters',
-	'services',
-	'ngResource',
-	'ngRoute',
-	'ui.bootstrap'
+  'filters',
+  'directives',
+  'services',
+  'factories',
+  'controllers',
+  'ngResource',
+  'ngRoute',
+  'ngCookies',
+  'ngAnimate',
+  'ngSanitize',
+  'ui.bootstrap'
 ])
+  .config(function ($routeProvider, $sceProvider) {
+    $sceProvider.enabled(false);
 
-.config(function($routeProvider){
-	$routeProvider
-     .when('/admin',
-        {
-            controller: 'Admin',
-            templateUrl: '/views/admin.html'
-        })
-    .when('/:tag',
-        {
-            controller: 'Main',
-            templateUrl: '/views/main.html'
-        })
-    .otherwise({ redirectTo: '/' + defaultTag });
-});
+    $routeProvider
+      .when('/admin', {
+        templateUrl: 'views/admin.html',
+        controller: 'AdminCtrl'
+      })
+      .when('/tag/:tag', {
+        templateUrl: 'views/tag.html',
+        controller: 'TagCtrl'
+      })
+      .when('/', {
+        templateUrl: 'views/list.html',
+        controller: 'ListCtrl'
+      })
+      .otherwise({
+        redirectTo: '/'
+      });
+  })
+  
+  .run(function ($rootScope, App) {
+    $rootScope.$on('$locationChangeSuccess', function () {
+        // service singleton not working...
+        if (!$rootScope.app){
+          $rootScope.app = new App();
+        }
+    });
+  });
