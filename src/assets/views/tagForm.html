@@ -11,14 +11,20 @@
 		<div class="form-group">
 			<label>Start Date</label>
 			<p class="input-group">
-			  <input datepicker-append-to-body show-weeks="false" datepicker-popup="MM-dd-yyyy" is-open="start_opened" type="text" class="form-control" ng-model="thing.start" required />
+				<input show-weeks="false" placeholder="MM-dd-yyyy" datepicker-popup="MM-dd-yyyy" is-open="start_opened" type="text" class="form-control" ng-model="thing.start" required />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="start_opened=true"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
 			</p>
 		</div>
 
 		<div class="form-group">
 			<label>End Date</label>
 			<p class="input-group">
-			  <input datepicker-append-to-body show-weeks="false" datepicker-popup="MM-dd-yyyy" is-open="end_opened" type="text" class="form-control" ng-model="thing.end" required />
+			  <input show-weeks="false" placeholder="MM-dd-yyyy" datepicker-popup="MM-dd-yyyy" is-open="end_opened" type="text" class="form-control" ng-model="thing.end" required />
+			  <span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="end_opened=true"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
 			</p>
 		</div>
 	</form>
