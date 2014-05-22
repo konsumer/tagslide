@@ -117,7 +117,7 @@ app.get('/instagram/:tag', function(req, res){
 // Instagram has a new post for us, re-process the tag
 app.post('/instagram/:tag', function(req, res){
   res.send(req.query['hub.challenge']);
-  console.log('from instagram', req.body);
+  console.log(chalk.green('from instagram'), req.body);
   /*
   processTag(tag, false,  function(er){
     if (er) console.log('tag error', er)
@@ -147,7 +147,7 @@ Tag.find({}, function(er, tags){
     });
     
     processTag(tag, false,  function(er){
-      if (er) console.log('tag error', er)
+      if (er) console.log(chalk.red('tag error'), er)
     });
   });
 });
@@ -156,12 +156,12 @@ Tag.find({}, function(er, tags){
 io.sockets.on('connection', function (Socket) {
   // on connect, give client some tags & posts
   Tag.find({}, function(er,tags){
-    if (er) return console.log('error getting tags', er);
+    if (er) return console.log(chalk.red('error getting tags'), er);
     Socket.emit('tags', tags);
   });
   
   Post.find({}, function(er,posts){
-    if (er) return console.log('error getting posts', er);
+    if (er) return console.log(chalk.red('error getting posts'), er);
     Socket.emit('posts', posts);
   });
 
@@ -205,7 +205,7 @@ io.sockets.on('connection', function (Socket) {
     Socket.broadcast.emit('tag', tag);
 
     processTag(tag, false,  function(er){
-      if (er) console.log('tag error', er);
+      if (er) console.log(chalk.red('tag error'), er);
     });
   });
 
