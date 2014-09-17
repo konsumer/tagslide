@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <title>tagslide</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/emojione/1.1.0/assets/css/emojione.min.css" type="text/css" media="all" />
+</head>
+<body ng-controller="MainCtrl">
+	<div class="help" ng-show="tag" >Post to Instagram with #{{tag}}</div>
+	<div class="post" ng-repeat="post in posts">
+		<div class="media">
+	        <img ng-if="post.type == 'image'" ng-src="{{post.media}}" />
+	        <video ng-if="post.type == 'video'" autoplay muted loop ng-src="{{post.media}}"></video>
+	    </div>
+	    <div class="user">
+	        <img ng-src="{{post.user_image}}" />
+	        <div class="username">{{post.username}}</div>
+	    </div>
+	    <div class="caption" ng-bind-html="post.caption"></div>
+	    <div class="source">{{post.source}}</div>
+	</div>
+</body>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-animate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/emojione/1.1.0/lib/js/emojione.min.js" type="text/javascript"></script>
+
+<script>
+angular.module('app', ['ngAnimate'])
+    .controller('MainCtrl', function ($scope, $sce) {
+    	$scope.posts = [];
+    	io = io.connect();
+    	io.emit('ready');
+    	io.on('post', function(post) {
+		    $scope.posts.shift();
+		    post.media = $sce.trustAsResourceUrl(post.media);
+		    post.caption = $sce.trustAsHtml(emojione.toImage(post.caption));
+		    $scope.posts.push(post);
+		    $scope.tag = post.tag;
+		    $scope.$apply();
+		});
+    });
+</script>

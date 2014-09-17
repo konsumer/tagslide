@@ -1,6 +1,3 @@
 node_modules
-webroot
-bower_components
-.env
 .DS_Store
-npm-debug.log
+.env

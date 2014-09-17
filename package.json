@@ -1,46 +1,19 @@
 {
   "name": "tagslide",
   "version": "0.0.0",
-  "description": "Pull slideshow from Instagram & Twitter, by tag",
+  "description": "",
   "scripts": {
-    "start": "brunch w -s",
-    "postinstall": "./node_modules/bower/bin/bower install && ./node_modules/brunch/bin/brunch build --production"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/konsumer/tagslide.git"
+    "start": "node server.js"
   },
   "author": "David Konsumer <konsumer@jetboystudio.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/konsumer/tagslide/issues"
-  },
-  "homepage": "https://github.com/konsumer/tagslide",
   "dependencies": {
-    "express": "^3.5.1",
-    "mongoose": "^3.8.8",
-    "mongoose-types": "^1.0.3",
-    "async": "^0.4.0",
-    "instagram-node": "^0.1.16",
-    "mers": "^0.7.3",
-    "bower": "^1.3.3",
-    "brunch": "^1.7.13",
-    "less-brunch": ">=1.7.0",
-    "clean-css-brunch": ">=1.7.1",
-    "javascript-brunch": ">=1.7.0",
-    "ngmin-uglify-js-brunch": "~1.7.2",
-    "chalk": "^0.4.0",
-    "connect": "^2.17.1",
-    "session-mongoose": "^0.4.1",
-    "socket.io": "^0.9.16",
-    "emoji": "^0.3.2"
+    "chalk": "^0.5.1",
+    "express.io": "^1.1.13",
+    "instagram-node-lib": "^0.1.1",
+    "lodash": "^2.4.1"
   },
   "devDependencies": {
-    "auto-reload-brunch": "^1.7.3",
-    "foreman": "^0.2.1",
-    "node-env-file": "^0.1.0"
-  },
-  "engines": {
-    "node": ">=0.8.0"
+    "node-env-file": "^0.1.3"
   }
 }
