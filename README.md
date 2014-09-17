@@ -1,6 +1,6 @@
 # Tagslide
 
-Basic event slideshow using AngularJS, easy to theme. Displays images and videos from Instagram. Synchronized, so the same thing shows on multiple computer-screens.
+Basic event slideshow using AngularJS, easy to theme. Displays images and videos from Instagram. Synchronized, so the same thing shows on multiple computer-screens. Just post to Instagram with the tag, and it will show up.
 
 Here is a [demo](http://tagslide.herokuapp.com/) with the tag #tagslide.
 
@@ -31,7 +31,12 @@ INSTAGRAM_ID=<YOURS>
 INSTAGRAM_SECRET=<YOURS>
 INTERVAL=<INTERVAL_MS>
 TAG=<TAG_TO_WATCH>
+COMMENTS=no
 ```
+
+*  You should probably set `INTERVAL` to  something larger than 3 seconds (default is 10000.)
+*  `TAG` is whatever tag you want to watch for
+*  `COMMENTS` is whether or not comments should be included
 
 ## Development
 
