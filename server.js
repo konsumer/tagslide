@@ -26,7 +26,7 @@ if (!process.env.BASE_URI)
 if (!process.env.TAG)
 	complainAndDie('Please set the environment variable TAG to the hashtag you want to listen for.');
 if (!process.env.INSTAGRAM_ID)
-	complainAndDie('Please set the environment variable INSTAGRAM_ID toy our Instagram ID.');
+	complainAndDie('Please set the environment variable INSTAGRAM_ID to your Instagram ID.');
 if (!process.env.INSTAGRAM_SECRET)
 	complainAndDie('Please set the environment variable INSTAGRAM_SECRET to your Instagram secret.');
 
@@ -37,7 +37,6 @@ Instagram.set('client_secret', process.env.INSTAGRAM_SECRET);
 function processInstagram(post){
 	var record = _.filter(posts, { 'id': post.id, source: 'instagram'});
 	if (record.length !== 0) return;
-	post.source = 'instagram';
 	posts.push({
 		"id": post.id,
 		"source": "instagram",
@@ -50,7 +49,17 @@ function processInstagram(post){
 		"link": post.link,
 		"caption": post.caption.text
 	});
-	console.log(post.caption)
+}
+
+// turn Twitter post into normalized post & add to posts, if it's not already recorded
+function processTwitter(post){
+	var record = _.filter(posts, { 'id': post.id, source: 'twitter'});
+	if (record.length !== 0) return;
+	posts.push({
+		"id": post.id,
+		"source": "twitter",
+		"tag": process.env.TAG
+	});
 }
 
 app.http().io();
