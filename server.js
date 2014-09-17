@@ -93,9 +93,6 @@ Instagram.tags.recent({
 app.get('/', function(req, res) {
     res.sendfile(__dirname + '/client.html');
 });
-app.get('/style.css', function(req, res) {
-    res.sendfile(__dirname + '/style.css');
-});
 
 // tell all clients to update, together
 setInterval(function(){

@@ -3,9 +3,101 @@
 <head>
     <meta charset="utf-8">
     <title>tagslide</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/emojione/1.1.0/assets/css/emojione.min.css" type="text/css" media="all" />
+    <style>
+		body {
+			font-family: sans-serif;
+			overflow:hidden;
+			color: #fff;
+			background: #000;
+		}
+
+		.help, .user, .caption {
+			z-index: 10;
+			position:absolute;
+		}
+
+		.help {
+			width: 100%;
+			font-size:3em;
+			text-align:center;
+
+			color: white;
+			text-shadow:
+			3px 3px 0 #000,
+			-1px -1px 0 #000,  
+			1px -1px 0 #000,
+			-1px 1px 0 #000,
+			1px 1px 0 #000;
+
+			-webkit-text-stroke: 1px black;
+			-webkit-text-fill-color: white;
+		}
+
+		.user, .caption {
+			background: rgba(0,0,0,0.5);
+			margin: 10px;
+			padding:  5px;
+		}
+
+		.user {
+			text-align:center;
+			
+		}
+
+		.caption {
+			right: 0;
+			bottom:0;
+			max-width: 50%;
+			max-height: 50%;
+			text-align:right;
+		}
+
+		.post {
+			position:absolute;
+			top:0;
+			left:0;
+			width: 100%;
+			height: 100%;
+		}
+
+		.post.ng-enter {
+			animation: fadeIn 1s;
+			-webkit-animation: fadeIn 1s;
+			-moz-animation: fadeIn 1s;
+			-o-animation: fadeIn 1s;
+		}
+
+		.post.ng-leave {
+			animation: fadeOut 1s;
+			-webkit-animation: fadeOut 1s;
+			-moz-animation: fadeOut 1s;
+			-o-animation: fadeOut 1s;
+		}
+
+		.post .media img {
+			position: absolute;
+			bottom: -50%; 
+			right: 0px; 
+			min-width: 100%; 
+			min-height: 100%; 
+			width: auto; 
+			height: auto;
+			overflow: hidden;
+		}
+
+		.post .media video {
+			position: absolute;
+			bottom: 0px; 
+			right: 0px; 
+			min-width: 100%; 
+			min-height: 100%; 
+			width: auto; 
+			height: auto; 
+			overflow: hidden
+		}
+    </style>
 </head>
 <body ng-controller="MainCtrl">
 	<div class="help" ng-show="tag" >Post to Instagram with #{{tag}}</div>
