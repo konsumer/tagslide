@@ -4,7 +4,13 @@ Basic event slideshow using AngularJS, easy to theme. Displays images and videos
 
 ## Deploy
 
-This is designed to be deployed on heroku, so configuration is in `.env`.
+### heroku
+
+You can deploy this on heroku easily, with 1 web dyno.
+
+### configuration
+
+Use `.env` to set your environment variables, or you can also edit your config variables in the dyno's settings.
 
 To get settings from your remote heroku app:
 
@@ -14,7 +20,6 @@ To set settings on your remote heroku app:
 
 	heroku config:push --overwrite --interactive
 
-You can also edit your config variables in the dyno's settings.
 
 If you are not using heroku, just edit your `.env` file to look like this:
 

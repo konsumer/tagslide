@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
-    "start": "node server.js"
+    "start": "node ."
   },
   "author": "David Konsumer <konsumer@jetboystudio.com>",
   "license": "MIT",
