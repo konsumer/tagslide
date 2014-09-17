@@ -10,7 +10,8 @@
 </head>
 
 <body ng-controller="MainCtrl">
-	<div class="help" ng-show="tag" >Post to Instagram with #{{tag}}</div>
+	<h1 class="help" ng-show="tag">Post to Instagram with #{{tag}}</h1>
+	<button class="fullscreen btn btn-lg btn-primary" ng-click="fullscreen()">fullscreen</button>
 	<div class="post" ng-repeat="post in posts">
 		<div class="media">
 	        <img ng-if="post.type == 'image'" ng-src="{{post.media}}" />
@@ -22,10 +23,12 @@
 	    </div>
 	    <div class="source">{{post.source}}</div>
 	    <div class="caption" ng-bind-html="post.caption"></div>
-	    <div ng-if="post.comments" class="comments">
-	    	<div class="comment" ng-repeat="comment in post.comments">
-	    		<img class="user" ng-src="{{comment.from.profile_picture}}">
-	    		<div class="text" ng-bind-html="comment.text"></div>
+	    <div ng-if="post.comments" class="comments col-xs-3">
+	    	<div class="comment media" ng-repeat="comment in post.comments">
+	    		<div class="pull-left">
+	    			<img class="media-object" ng-src="{{comment.from.profile_picture}}">
+	    		</div>
+	    		<div class="media-body" ng-bind-html="comment.text"></div>
 	    	</div>
 	    </div>
 	</div>

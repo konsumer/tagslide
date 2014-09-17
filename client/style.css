@@ -1,0 +1,123 @@
+body {
+	background:#000;
+	color: #fff;
+	overflow:hidden;
+}
+
+h1, .caption, .user {
+	text-align:center;
+}
+
+h1, .caption {
+	left:0;
+	width: 100%;
+	text-shadow:
+		1px 1px 0 #000,
+		-1px -1px 0 #000,  
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
+}
+
+h1 {
+	top:0;
+	line-height:  0.8em;
+}
+
+.source {
+	display:none;
+}
+
+.user {
+	bottom:0;
+	left:0;
+}
+
+.caption {
+	top: 3em;
+	width: 100%;
+	opacity: 0.5;
+}
+
+.post {
+	width:100%;
+	height: 100%;
+	z-index: -1;
+}
+
+.post.ng-enter {
+	animation: fadeIn 1s;
+	-webkit-animation: fadeIn 1s;
+	-moz-animation: fadeIn 1s;
+	-o-animation: fadeIn 1s;
+}
+
+.post.ng-leave {
+	animation: fadeOut 1s;
+	-webkit-animation: fadeOut 1s;
+	-moz-animation: fadeOut 1s;
+	-o-animation: fadeOut 1s;
+}
+
+.post > .media > img {
+	position: absolute;
+	bottom: -50%; 
+	right: 0px; 
+	min-width: 100%; 
+	min-height: 100%; 
+	width: auto; 
+	height: auto;
+	overflow: hidden;
+}
+
+.post > .media > video {
+	position: absolute;
+	bottom: 0px; 
+	right: 0px; 
+	min-width: 100%; 
+	min-height: 100%; 
+	width: auto; 
+	height: auto; 
+	overflow: hidden
+}
+
+
+h1, .post, .user, .caption, .comments, .fullscreen {
+	position:absolute;
+}
+
+.user, .comments {
+	background: #000;
+	opacity: 0.3;
+	margin: 10px;
+	padding:  5px;
+
+}
+
+.comments {
+	right:0;
+	bottom:0;
+}
+
+.post {
+	left:0;
+	top:0;
+}
+
+.caption, .comments, .fullscreen {
+	margin: 10px;
+}
+
+.fullscreen {
+	right:0;
+	top:0;
+}
+
+:-webkit-full-screen .fullscreen {
+	display:none;
+}
+
+.comment .media-object{
+	width: 2em;
+	height: 2em;
+}
