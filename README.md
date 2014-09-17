@@ -1,6 +1,6 @@
 # Tagslide
 
-Basic event slideshow using AngularJS, easy to theme. Displays images and videos from Instagram. Synchronized, so the same thing shows on multiple computers.
+Basic event slideshow using AngularJS, easy to theme. Displays images and videos from Instagram. Synchronized, so the same thing shows on multiple computer-screens.
 
 ## Deploy
 
@@ -13,6 +13,8 @@ To get settings from your remote heroku app:
 To set settings on your remote heroku app:
 
 	heroku config:push --overwrite --interactive
+
+You can also edit your config variables in the dyno's settings.
 
 If you are not using heroku, just edit your `.env` file to look like this:
 
