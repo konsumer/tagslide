@@ -111,6 +111,7 @@ h1, .post, .user, .caption, .comments, .fullscreen {
 .fullscreen {
 	right:0;
 	top:0;
+	opacity: 0.3;
 }
 
 :-webkit-full-screen .fullscreen {
