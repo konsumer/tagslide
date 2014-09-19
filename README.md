@@ -4,11 +4,13 @@ Basic event slideshow using AngularJS, easy to theme. Displays images and videos
 
 Here is a [demo](http://tagslide.herokuapp.com/) with the tag #tagslide.
 
+Optionally, you can moderate
+
 ## Deploy
 
 ### heroku
 
-You can deploy this on heroku easily, with 1 web dyno.
+You can deploy this on heroku (for free) easily, with 1 web dyno.
 
 ### configuration
 
@@ -32,11 +34,19 @@ INSTAGRAM_SECRET=<YOURS>
 INTERVAL=<INTERVAL_MS>
 TAG=<TAG_TO_WATCH>
 COMMENTS=no
+MODERATED=no
+MONGO_URI=blahblah
 ```
 
-*  You should probably set `INTERVAL` to  something larger than 3 seconds (default is 10000.)
-*  `TAG` is whatever tag you want to watch for
-*  `COMMENTS` is whether or not comments should be included
+*  You should probably set `INTERVAL` to  something larger than 3000 for proper latency & animation (default is 10000.)
+*  `TAG` is whatever tag you want to watch for. On the demo, it's "tagslide".
+*  `COMMENTS` is whether or not comments should be displayed
+*  `MODERATED` is whether or not you want to OK every image.  If you set this to true, but don't login & OK any images, then nothing will show. This will require a mongodb (free heroku addon) to use.
+*  `MONGO_URI`, `MONGOHQ_URL`, `MONGOLAB_URI`, or `MONGOSOUP_URL` is needed if you want to moderate posts. It stores approved posts & login info.
+
+### moderation
+
+The users & accepted images are stored in an optional sqlite database. If you set `MODERATED` to "yes" in your `.env` file, you can login & approve posts. Only those that are approved will show up. You can use the command-line utility `./setup_admin` to create your admin users. You will need a mongodb database. I use MongoLab (free.)
 
 ## Development
 
