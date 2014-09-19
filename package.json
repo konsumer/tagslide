@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
-    "start": "node ."
+    "start": "node server"
   },
   "author": "David Konsumer <konsumer@jetboystudio.com>",
   "license": "MIT",
@@ -11,7 +11,8 @@
     "chalk": "^0.5.1",
     "express.io": "^1.1.13",
     "instagram-node-lib": "^0.1.1",
-    "lodash": "^2.4.1"
+    "lodash": "^2.4.1",
+    "mongoose": "^3.8.16"
   },
   "devDependencies": {
     "node-env-file": "^0.1.3"
