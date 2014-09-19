@@ -59,26 +59,34 @@ h1 {
 	-o-animation: fadeOut 1s;
 }
 
-.post > .media > img {
-	position: absolute;
-	top: 0px; 
-	left: 0px; 
-	min-width: 100%; 
-	min-height: 100%; 
-	width: auto; 
-	height: auto;
+/*
+background-cover & center for video & image:
+http://fvsch.com/code/video-background
+*/
+.post > .media {
+	position: fixed;
+	top: 0; right: 0; bottom: 0; left: 0;
 	overflow: hidden;
 }
-
-.post > .media > video {
+.post > .media > video, .post > .media > img {
 	position: absolute;
-	top: 0px; 
-	left: 0px; 
-	min-width: 100%; 
-	min-height: 100%; 
-	width: auto; 
-	height: auto; 
-	overflow: hidden
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+@media (min-aspect-ratio: 16/9) {
+	.post > .media > video, .post > .media > img { height: 300%; top: -100%; }
+}
+@media (max-aspect-ratio: 16/9) {
+	.post > .media > video, .post > .media > img { width: 300%; left: -100%; }
+}
+@supports (object-fit: cover) {
+	.post > .media > video, .post > .media > img {
+		top: 0; left: 0;
+		width: 100%; height: 100%;
+		object-fit: cover;
+	}
 }
 
 
@@ -112,6 +120,10 @@ h1, .post, .user, .caption, .comments, .fullscreen {
 	right:0;
 	top:0;
 	opacity: 0.3;
+}
+
+.fullscreen:hover, .user:hover, .comments:hover {
+	opacity:0.8;
 }
 
 :-webkit-full-screen .fullscreen {
