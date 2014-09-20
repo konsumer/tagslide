@@ -5,4 +5,4 @@ var Approved = new mongoose.Schema({
 	source: {type: String, enum:['instagram', 'twitter'], required:true}
 });
 
-module.exports = mongoose.model('Song', Approved);
+module.exports = mongoose.model('Approved', Approved);
