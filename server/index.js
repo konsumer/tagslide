@@ -30,3 +30,6 @@ update();
 // tell all clients to update, together
 setInterval(update, config.interval);
 
+app.io.route('ready', function(req) {
+	req.io.emit('post', app.posts[(app.current-1) % app.posts.length]);
+});
