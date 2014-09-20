@@ -52,8 +52,8 @@ The approved images are stored in an optional mongodb database. If you set `MODE
 
     ./approve SOURCE ID
 
-*  type "instagram" or "twitter" for SOURCE
-*  type whatever the ID is for ID.
+*  `SOURCE`: "instagram" or "twitter"
+*  `ID`: the post id
 
 
 ## Development
