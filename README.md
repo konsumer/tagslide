@@ -46,6 +46,8 @@ MONGO_URI=blahblah
 
 ### moderation
 
+Moderation is a bit clunky, right now. I need to work out a better system.
+
 The approved images are stored in an optional mongodb database. If you set `MODERATED` to "yes" in your `.env` file, you can approve posts form the command-line. Only those that are approved will show up. You can use the command-line utility `./approve`. You will need a mongodb database. I use MongoLab (free.)
 
 #### approve
