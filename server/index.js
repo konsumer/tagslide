@@ -12,17 +12,21 @@ app.use(express.static(__dirname + '/../client'));
 app.posts = [];
 app.current = 0;
 var instagram = require('./instagram')(app);
-// require('./server/twitter')(app);
+// require('./twitter')(app);
 
 
 console.log('Listening at ' + chalk.blue(chalk.underline('http://0.0.0.0:' + config.port)));
 app.listen(config.port);
 
-// tell all clients to update, together
-setInterval(function(){
+var update = function(){
+	console.log('update!');
 	if (app.posts.length > 0){
 		app.io.broadcast('post', app.posts[app.current % app.posts.length]);
 		app.current++;
 	}
-}, config.interval);
+};
+update();
+
+// tell all clients to update, together
+setInterval(update, config.interval);
 

@@ -4,7 +4,7 @@
 
 var Instagram = require('instagram-node-lib'),
 	_ = require('lodash'),
-	config = require('./config.js')
+	config = require('./config'),
 	models = require('./models');
 
 module.exports = function(app){
@@ -12,7 +12,8 @@ module.exports = function(app){
 
 	// turn Instagram post into normalized post & add to posts, if it's not already recorded
 	var process = function(post){
-		if (config.moderated && approved.indexOf(post.id) === -1) return;
+		console.log('instagram ' + post.id);
+		if (config.moderated && approved.indexOf(post.id) === -1) return console.log('not approved.');
 		var record = _.filter(app.posts, { 'id': post.id, source: 'instagram'});
 		if (record.length !== 0) return;
 
@@ -38,11 +39,15 @@ module.exports = function(app){
 
 	// update approved posts
 	var updateApproved = function(cb){
-		models.Approved.find({source:'instagram'}, function(err, appr){
-			if (err) return cb(err);
-			approved = appr.map(function(a){ return a.id; });
-			cb(null, approved);
-		});
+		if (config.moderated){
+			models.Approved.find({source:'instagram'}, function(err, appr){
+				if (err) return cb(err);
+				approved = appr.map(function(a){ return a.id; });
+				cb(null, approved);
+			});
+		}else{
+			cb(null);
+		}
 	}
 
 	// when Instagram asks us if we cool: we cool.

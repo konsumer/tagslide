@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+/**
+ * approve requests
+ */
+
+var config = require('./server/config.js'),
+	chalk = require('chalk'),
+	mongoose = require('mongoose'),
+	models = require('./server/models');
+
+function usage(){
+	console.log(chalk.yellow('Usage: ') + 'approve SOURCE ID  - SOURCE is "instagram" or "twitter"');
+	process.exit(1);
+}
+
+try{
+	var approved = new models.Approved({
+		source: process.argv[2],
+		id: process.argv[3]
+	});
+
+	approved.save(function(err, record){
+		if (err) {
+			console.log(chalk.red('Error: ') + err);
+			usage();
+		}
+		console.log(record);
+		mongoose.connection.close();
+	});
+}catch(err){
+	usage();
+}

@@ -18,11 +18,11 @@ Use `.env` to set your environment variables, or you can also edit your config v
 
 To get settings from your remote heroku app:
 
-	heroku config:pull --overwrite --interactive
+    heroku config:pull --overwrite --interactive
 
 To set settings on your remote heroku app:
 
-	heroku config:push --overwrite --interactive
+    heroku config:push --overwrite --interactive
 
 
 If you are not using heroku, just edit your `.env` file to look like this:
@@ -41,12 +41,20 @@ MONGO_URI=blahblah
 *  You should probably set `INTERVAL` to  something larger than 3000 for proper latency & animation (default is 10000.)
 *  `TAG` is whatever tag you want to watch for. On the demo, it's "tagslide".
 *  `COMMENTS` is whether or not comments should be displayed
-*  `MODERATED` is whether or not you want to OK every image.  If you set this to true, but don't login & OK any images, then nothing will show. This will require a mongodb (free heroku addon) to use.
-*  `MONGO_URI`, `MONGOHQ_URL`, `MONGOLAB_URI`, or `MONGOSOUP_URL` is needed if you want to moderate posts. It stores approved posts & login info.
+*  `MODERATED` is whether or not you want to OK every image.  If you set this to true, but don't approve any images, then nothing will show. This will require a mongodb (free heroku addon) to use.
+*  `MONGO_URI`, `MONGOHQ_URL`, `MONGOLAB_URI`, or `MONGOSOUP_URL` is needed if you want to moderate posts. It stores approved posts
 
 ### moderation
 
-The users & accepted images are stored in an optional sqlite database. If you set `MODERATED` to "yes" in your `.env` file, you can login & approve posts. Only those that are approved will show up. You can use the command-line utility `./setup_admin` to create your admin users. You will need a mongodb database. I use MongoLab (free.)
+The approved images are stored in an optional mongodb database. If you set `MODERATED` to "yes" in your `.env` file, you can approve posts form the command-line. Only those that are approved will show up. You can use the command-line utility `./approve`. You will need a mongodb database. I use MongoLab (free.)
+
+#### approve
+
+    ./approve SOURCE ID
+
+*  type "instagram" or "twitter" for SOURCE
+*  type whatever the ID is for ID.
+
 
 ## Development
 

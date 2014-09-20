@@ -1,17 +1,13 @@
 var mongoose = require("mongoose"),
     chalk = require('chalk');
 
-// check configuration
-
-if (!process.env.MONGOHQ_URL && !process.env.MONGOLAB_URI && !process.env.MONGOSOUP_URL && !process.env.MONGO_URI) {
-    console.log('You need to set MONGOHQ_URL, MONGOLAB_URI, MONGOSOUP_URL, or MONGO_URI environment variables. Please see README.md, under "configuration", for more info.')
-    process.exit(1);
-}
-
-
 // pre-configure mongoose
 var mongo_url = process.env.MONGO_URI || process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || process.env.MONGOSOUP_URL;
-mongoose.connect(mongo_url, {auto_reconnect: true});
+
+if (mongo_url){
+	mongoose.connect(mongo_url, {auto_reconnect: true});
+}
+
 mongoose.connection.on('error', function(e) {
     console.log(chalk.red('Mongoose Error:'), e)
 });
