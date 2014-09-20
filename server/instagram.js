@@ -52,7 +52,7 @@ module.exports = function(app){
 
 	// when Instagram asks us if we cool: we cool.
 	app.get('/instagram/' + config.tag, function(req, res){
-	  res.send(req.query['hub.challenge']);
+		res.send(req.query['hub.challenge']);
 	});
 
 	// Instagram has a new post for us, re-process the tag
@@ -80,10 +80,8 @@ module.exports = function(app){
 			});
 		}
 	});
-}
 
-// subscribe to Instagram's new posts
-module.exports.subscribe = function(){
+	// subscribe to Instagram's new posts
 	Instagram.subscriptions.subscribe({
 		object: 'tag',
 		object_id: config.tag,

@@ -12,7 +12,7 @@ app.use(express.static(__dirname + '/../client'));
 app.posts = [];
 app.current = 0;
 var instagram = require('./instagram')(app);
-// require('./twitter')(app);
+//var twitter  require('./twitter')(app);
 
 
 console.log('Listening at ' + chalk.blue(chalk.underline('http://0.0.0.0:' + config.port)));
